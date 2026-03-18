@@ -1,0 +1,112 @@
+.work {
+  padding: 8rem 4rem;
+  min-height: 100vh;
+  background: var(--bg-secondary);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  z-index: 10;
+}
+
+.header {
+  margin-bottom: 6rem;
+  max-width: 600px;
+}
+
+.title {
+  font-size: clamp(3rem, 5vw, 5rem);
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 4rem 3rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  cursor: pointer;
+}
+
+.imageContainer {
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  background: #000;
+}
+
+.image {
+  width: 100%;
+  height: 120%; /* Extra height for parallax */
+  top: -10%;
+  position: absolute;
+  left: 0;
+  background-size: cover;
+  background-position: center;
+  will-change: transform;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 12, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+.overlay span {
+  padding: 0.8rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transform: translateY(20px);
+  transition: transform 0.4s ease, background 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.card:hover .overlay {
+  opacity: 1;
+  backdrop-filter: blur(4px);
+}
+
+.card:hover .overlay span {
+  transform: translateY(0);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.meta h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.meta p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .work {
+    padding: 6rem 2rem;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}

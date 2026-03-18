@@ -1,0 +1,129 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 4rem;
+  overflow: hidden;
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+  max-width: 800px;
+}
+
+.title {
+  font-size: clamp(4rem, 8vw, 8rem);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  margin-bottom: 2rem;
+}
+
+.line {
+  display: flex;
+  gap: 1.5rem;
+  overflow: hidden;
+  padding-bottom: 0.2rem;
+  flex-wrap: wrap; /* Fallback for smaller screens */
+}
+
+.italic {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.subtitle {
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 600px;
+  font-weight: 400;
+}
+
+.shapes {
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%);
+  width: 40vw;
+  height: 40vw;
+  max-width: 600px;
+  max-height: 600px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.shape1, .shape2 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  will-change: transform;
+}
+
+.shape1 {
+  top: 10%;
+  left: 10%;
+  width: 60%;
+  height: 60%;
+  background: var(--accent-1);
+  opacity: 0.4;
+}
+
+.shape2 {
+  bottom: 10%;
+  right: 10%;
+  width: 50%;
+  height: 50%;
+  background: var(--accent-2);
+  opacity: 0.3;
+}
+
+.scroll {
+  position: absolute;
+  bottom: 3rem;
+  left: 4rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.scrollLine {
+  width: 1px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.scrollDot {
+  width: 1px;
+  height: 20%;
+  background: var(--accent-1);
+  position: absolute;
+  top: -20%;
+  left: 0;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 0 2rem;
+  }
+  .line {
+    gap: 0.8rem;
+  }
+  .scroll {
+    left: 2rem;
+    bottom: 2rem;
+  }
+  .shapes {
+    width: 80vw;
+    height: 80vw;
+    right: -20%;
+    opacity: 0.5;
+  }
+}
