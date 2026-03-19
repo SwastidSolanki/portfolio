@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { GitHubCalendar } from 'react-github-calendar';
-import { Music, Mail, Sun, Moon, GitBranch, Linkedin, Instagram, ArrowUp, Headphones } from 'lucide-react';
+import { Music, Mail, GitBranch, Linkedin, Instagram, ArrowUp, Headphones } from 'lucide-react';
 import { Responsive as ResponsiveGridLayout } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
@@ -11,86 +11,78 @@ const BentoGrid: React.FC = () => {
     lg: [
       { i: 'focus', x: 0, y: 0, w: 2, h: 1 },
       { i: 'gmail', x: 2, y: 0, w: 1, h: 1 },
-      { i: 'theme', x: 3, y: 0, w: 1, h: 1 },
+      { i: 'linkedin', x: 3, y: 0, w: 1, h: 1 },
       { i: 'services', x: 0, y: 1, w: 2, h: 1 },
-      { i: 'linkedin', x: 2, y: 1, w: 1, h: 1 },
-      { i: 'insta', x: 3, y: 1, w: 1, h: 1 },
+      { i: 'insta', x: 2, y: 1, w: 1, h: 1 },
+      { i: 'topbar', x: 3, y: 1, w: 1, h: 1 },
       { i: 'github', x: 0, y: 2, w: 2, h: 1 },
       { i: 'nft', x: 2, y: 2, w: 2, h: 2 },
       { i: 'simon', x: 0, y: 3, w: 2, h: 1 },
       { i: 'proj1', x: 0, y: 4, w: 1, h: 1 },
       { i: 'spotify', x: 1, y: 4, w: 1, h: 1 },
-      { i: 'proj2', x: 2, y: 4, w: 1, h: 1 },
-      { i: 'topbar', x: 3, y: 4, w: 1, h: 1 }
+      { i: 'proj2', x: 2, y: 4, w: 1, h: 1 }
     ],
     md: [
       { i: 'focus', x: 0, y: 0, w: 2, h: 1 },
       { i: 'gmail', x: 2, y: 0, w: 1, h: 1 },
-      { i: 'theme', x: 3, y: 0, w: 1, h: 1 },
+      { i: 'linkedin', x: 3, y: 0, w: 1, h: 1 },
       { i: 'services', x: 0, y: 1, w: 2, h: 1 },
-      { i: 'linkedin', x: 2, y: 1, w: 1, h: 1 },
-      { i: 'insta', x: 3, y: 1, w: 1, h: 1 },
+      { i: 'insta', x: 2, y: 1, w: 1, h: 1 },
+      { i: 'topbar', x: 3, y: 1, w: 1, h: 1 },
       { i: 'github', x: 0, y: 2, w: 2, h: 1 },
       { i: 'nft', x: 2, y: 2, w: 2, h: 2 },
       { i: 'simon', x: 0, y: 3, w: 2, h: 1 },
       { i: 'proj1', x: 0, y: 4, w: 1, h: 1 },
       { i: 'spotify', x: 1, y: 4, w: 1, h: 1 },
-      { i: 'proj2', x: 2, y: 4, w: 1, h: 1 },
-      { i: 'topbar', x: 3, y: 4, w: 1, h: 1 }
+      { i: 'proj2', x: 2, y: 4, w: 1, h: 1 }
     ],
     sm: [
       { i: 'focus', x: 0, y: 0, w: 2, h: 1 },
       { i: 'gmail', x: 0, y: 1, w: 1, h: 1 },
-      { i: 'theme', x: 1, y: 1, w: 1, h: 1 },
-      { i: 'services', x: 0, y: 2, w: 2, h: 2 },
-      { i: 'linkedin', x: 0, y: 4, w: 1, h: 1 },
-      { i: 'insta', x: 1, y: 4, w: 1, h: 1 },
-      { i: 'github', x: 0, y: 5, w: 2, h: 1 },
-      { i: 'spotify', x: 0, y: 6, w: 1, h: 1 },
-      { i: 'proj1', x: 1, y: 6, w: 1, h: 1 },
-      { i: 'proj2', x: 0, y: 7, w: 1, h: 1 },
-      { i: 'topbar', x: 1, y: 7, w: 1, h: 1 },
-      { i: 'nft', x: 0, y: 8, w: 2, h: 2 },
-      { i: 'simon', x: 0, y: 10, w: 2, h: 1 }
+      { i: 'linkedin', x: 1, y: 1, w: 1, h: 1 },
+      { i: 'services', x: 0, y: 2, w: 2, h: 1 },
+      { i: 'insta', x: 0, y: 3, w: 1, h: 1 },
+      { i: 'topbar', x: 1, y: 3, w: 1, h: 1 },
+      { i: 'github', x: 0, y: 4, w: 2, h: 1 },
+      { i: 'spotify', x: 0, y: 5, w: 1, h: 1 },
+      { i: 'proj1', x: 1, y: 5, w: 1, h: 1 },
+      { i: 'proj2', x: 0, y: 6, w: 1, h: 1 },
+      { i: 'nft', x: 0, y: 7, w: 2, h: 1 },
+      { i: 'simon', x: 0, y: 8, w: 2, h: 1 }
     ],
     xs: [
       { i: 'focus', x: 0, y: 0, w: 1, h: 1 },
       { i: 'gmail', x: 0, y: 1, w: 1, h: 1 },
-      { i: 'theme', x: 0, y: 2, w: 1, h: 1 },
-      { i: 'services', x: 0, y: 3, w: 1, h: 2 },
-      { i: 'linkedin', x: 0, y: 5, w: 1, h: 1 },
-      { i: 'insta', x: 0, y: 6, w: 1, h: 1 },
-      { i: 'github', x: 0, y: 7, w: 1, h: 1 },
-      { i: 'spotify', x: 0, y: 8, w: 1, h: 1 },
-      { i: 'nft', x: 0, y: 9, w: 1, h: 2 },
-      { i: 'proj1', x: 0, y: 11, w: 1, h: 1 },
-      { i: 'proj2', x: 0, y: 12, w: 1, h: 1 },
-      { i: 'simon', x: 0, y: 13, w: 1, h: 1 },
-      { i: 'topbar', x: 0, y: 14, w: 1, h: 1 }
+      { i: 'linkedin', x: 0, y: 2, w: 1, h: 1 },
+      { i: 'insta', x: 0, y: 3, w: 1, h: 1 },
+      { i: 'services', x: 0, y: 4, w: 1, h: 1 },
+      { i: 'github', x: 0, y: 5, w: 1, h: 1 },
+      { i: 'spotify', x: 0, y: 6, w: 1, h: 1 },
+      { i: 'nft', x: 0, y: 7, w: 1, h: 1 },
+      { i: 'proj1', x: 0, y: 8, w: 1, h: 1 },
+      { i: 'proj2', x: 0, y: 9, w: 1, h: 1 },
+      { i: 'simon', x: 0, y: 10, w: 1, h: 1 },
+      { i: 'topbar', x: 0, y: 11, w: 1, h: 1 }
     ],
     xxs: [
       { i: 'focus', x: 0, y: 0, w: 1, h: 1 },
       { i: 'gmail', x: 0, y: 1, w: 1, h: 1 },
-      { i: 'theme', x: 0, y: 2, w: 1, h: 1 },
-      { i: 'services', x: 0, y: 3, w: 1, h: 2 },
-      { i: 'linkedin', x: 0, y: 5, w: 1, h: 1 },
-      { i: 'insta', x: 0, y: 6, w: 1, h: 1 },
-      { i: 'github', x: 0, y: 7, w: 1, h: 1 },
-      { i: 'spotify', x: 0, y: 8, w: 1, h: 1 },
-      { i: 'nft', x: 0, y: 9, w: 1, h: 2 },
-      { i: 'proj1', x: 0, y: 11, w: 1, h: 1 },
-      { i: 'proj2', x: 0, y: 12, w: 1, h: 1 },
-      { i: 'simon', x: 0, y: 13, w: 1, h: 1 },
-      { i: 'topbar', x: 0, y: 14, w: 1, h: 1 }
+      { i: 'linkedin', x: 0, y: 2, w: 1, h: 1 },
+      { i: 'insta', x: 0, y: 3, w: 1, h: 1 },
+      { i: 'services', x: 0, y: 4, w: 1, h: 1 },
+      { i: 'github', x: 0, y: 5, w: 1, h: 1 },
+      { i: 'spotify', x: 0, y: 6, w: 1, h: 1 },
+      { i: 'nft', x: 0, y: 7, w: 1, h: 1 },
+      { i: 'proj1', x: 0, y: 8, w: 1, h: 1 },
+      { i: 'proj2', x: 0, y: 9, w: 1, h: 1 },
+      { i: 'simon', x: 0, y: 10, w: 1, h: 1 },
+      { i: 'topbar', x: 0, y: 11, w: 1, h: 1 }
     ]
   };
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(1200);
-  const [isDark, setIsDark] = useState(true);
-
   useEffect(() => {
-    setIsDark(!document.documentElement.classList.contains('light-theme'));
     if (!containerRef.current) return;
     const observer = new ResizeObserver((entries) => {
       setWidth(entries[0].contentRect.width);
@@ -98,11 +90,6 @@ const BentoGrid: React.FC = () => {
     observer.observe(containerRef.current);
     return () => observer.disconnect();
   }, []);
-
-  const toggleTheme = () => {
-    document.documentElement.classList.toggle('light-theme');
-    setIsDark(!document.documentElement.classList.contains('light-theme'));
-  };
 
   const goToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -175,12 +162,7 @@ const BentoGrid: React.FC = () => {
              <span className={styles.gmailLabel}>swastid03@gmail.com</span>
           </div>
 
-          {/* Theme Toggle Module */}
-          <div key="theme" className={`${styles.card} ${styles.draggable} ${styles.socialMiniCard} ${styles.themeModule}`} onClick={toggleTheme}>
-             <div className={styles.navLinkCenter}>
-               {isDark ? <Sun size={48} className={styles.giantIcon} /> : <Moon size={48} className={styles.giantIcon} />}
-             </div>
-          </div>
+
 
           {/* Services Offered Card */}
           <div key="services" className={`${styles.card} ${styles.draggable} ${styles.servicesCard}`}>

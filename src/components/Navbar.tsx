@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
+import { Sun, Moon } from 'lucide-react';
 import styles from './Navbar.module.css';
 
 const Navbar: React.FC = () => {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    setIsDark(!document.documentElement.classList.contains('light-theme'));
+  }, []);
+
+  const toggleTheme = () => {
+    document.documentElement.classList.toggle('light-theme');
+    setIsDark(!document.documentElement.classList.contains('light-theme'));
+  };
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     const previous = scrollY.getPrevious() || 0;
@@ -36,6 +48,9 @@ const Navbar: React.FC = () => {
           <li><a href="#about" className="hover-target">About</a></li>
           <li><a href="#ecosystem" className="hover-target">Ecosystem</a></li>
         </ul>
+        <button onClick={toggleTheme} className={styles.themeToggle} aria-label="Toggle Theme">
+          {isDark ? <Sun size={20} /> : <Moon size={20} />}
+        </button>
       </div>
     </motion.nav>
   );

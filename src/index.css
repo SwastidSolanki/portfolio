@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap');
+/* Satoshi font imported via index.html for performance */
 
 :root {
   --bg-primary: #0a0a0c;
@@ -10,8 +10,8 @@
   --accent-2: #8b5cf6;
   --accent-grad: linear-gradient(135deg, var(--accent-1), var(--accent-2));
   
-  --font-display: 'Outfit', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-display: 'Satoshi', sans-serif;
+  --font-body: 'Satoshi', sans-serif;
 }
 
 .light-theme {
@@ -40,7 +40,7 @@ html, body {
 }
 
 .light-theme body {
-  background: radial-gradient(circle at 80% 20%, rgba(14, 165, 233, 0.1) 0%, var(--bg-primary) 50%), var(--bg-primary);
+  background: radial-gradient(circle at 50% 50%, #fafafa 0%, #f0f0f0 100%), #f8fafc;
 }
 
 h1, h2, h3, h4, h5, h6 {

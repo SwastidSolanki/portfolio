@@ -30,7 +30,7 @@
 
 .card {
   background: var(--bg-secondary);
-  border-radius: 24px;
+  border-radius: 12px;
   padding: 2rem;
   border: 1px solid rgba(255, 255, 255, 0.15); /* Uniform elegant border */
   display: flex;
@@ -49,7 +49,7 @@
 :global(.react-grid-item.react-grid-placeholder) {
   background: var(--text-primary) !important;
   opacity: 0.1 !important;
-  border-radius: 24px;
+  border-radius: 12px;
   transition-duration: 100ms;
 }
 
@@ -411,19 +411,20 @@
 
 /* Specific Focus & Mini Cards Styles */
 .focusCard {
-  background: linear-gradient(135deg, #f43f5e, #7c3aed) !important;
+  background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary)) !important;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   padding: 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 .focusHeader {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #fbcfe8;
+  color: var(--text-secondary);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -565,7 +566,7 @@
     padding: 6rem 2rem;
   }
   .card {
-    border-radius: 20px;
+    border-radius: 10px;
     box-shadow: 0 16px 32px rgba(0,0,0,0.4);
   }
   :global(.light-theme) .card {
@@ -584,7 +585,7 @@
     font-size: 0.95rem;
   }
   .card {
-    border-radius: 16px;
+    border-radius: 8px;
     padding: 1.2rem;
     box-shadow: 0 10px 24px rgba(0,0,0,0.35);
   }
@@ -666,7 +667,7 @@
     font-size: 0.85rem;
   }
   .card {
-    border-radius: 14px;
+    border-radius: 8px;
     padding: 1rem;
   }
   .focusTitle {
