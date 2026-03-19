@@ -1,17 +1,16 @@
-
 import Layout from './components/Layout';
 import Hero from './components/Hero';
-import Work from './components/Work';
+import BentoGrid from './components/BentoGrid';
 import About from './components/About';
-import Contact from './components/Contact';
 
 function App() {
   return (
     <Layout>
       <Hero />
-      <Work />
       <About />
-      <Contact />
+      <div id="ecosystem">
+        <BentoGrid />
+      </div>
     </Layout>
   );
 }

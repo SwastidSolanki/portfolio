@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { motion } from 'framer-motion';
+import ThreeBackground from './ThreeBackground';
 import styles from './Hero.module.css';
 
 const Hero: React.FC = () => {
@@ -9,7 +10,7 @@ const Hero: React.FC = () => {
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
       const tl = gsap.timeline();
-      
+
       tl.from(".title-word", {
         y: 100,
         opacity: 0,
@@ -18,21 +19,21 @@ const Hero: React.FC = () => {
         ease: "power4.out",
         delay: 0.2
       })
-      .from(".hero-sub", {
-        y: 20,
-        opacity: 0,
-        duration: 0.8,
-        ease: "power3.out"
-      }, "-=0.6")
-      .from(".scroll-indicator", {
-        opacity: 0,
-        y: -10,
-        duration: 0.8,
-        ease: "power2.out"
-      }, "-=0.4");
+        .from(".hero-sub", {
+          y: 20,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out"
+        }, "-=0.6")
+        .from(".scroll-indicator", {
+          opacity: 0,
+          y: -10,
+          duration: 0.8,
+          ease: "power2.out"
+        }, "-=0.4");
 
     }, comp);
-    
+
     return () => ctx.revert();
   }, []);
 
@@ -41,60 +42,27 @@ const Hero: React.FC = () => {
       <div className={styles.content}>
         <h1 className={styles.title}>
           <div className={styles.line}>
-            <span className="title-word">Turning</span>
-            <span className="title-word">Ideas</span>
+            <span className="title-word">Swastid</span>
+            <span className="title-word">Solanki</span>
           </div>
           <div className={styles.line}>
-            <span className="title-word">Into</span>
-            <span className={`title-word text-gradient ${styles.italic}`}>Reality.</span>
+            <span className="title-word">Data &</span>
+            <span className={`title-word text-gradient ${styles.italic}`}>AWS.</span>
           </div>
         </h1>
-        
+
         <p className={`hero-sub ${styles.subtitle}`}>
-          Creative Developer specializing in interactive web experiences, 
-          WebGL, and award-winning animations.
+          Passionate about ThreeJS, GSAP, Data Engineering, Cloud Infrastructure, and building
+          scalable solutions on AWS.
         </p>
       </div>
 
-      <motion.div 
-        className={styles.shapes}
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
-      >
-        <motion.div 
-          className={styles.shape1}
-          animate={{ 
-            y: [0, -40, 0],
-            rotate: [0, 10, 0],
-            scale: [1, 1.1, 1]
-          }}
-          transition={{ 
-            repeat: Infinity, 
-            duration: 8, 
-            ease: "easeInOut" 
-          }}
-        />
-        <motion.div 
-          className={styles.shape2}
-          animate={{ 
-            y: [0, 40, 0],
-            rotate: [0, -10, 0],
-            scale: [1, 1.2, 1]
-          }}
-          transition={{ 
-            repeat: Infinity, 
-            duration: 10, 
-            ease: "easeInOut",
-            delay: 1
-          }}
-        />
-      </motion.div>
+      <ThreeBackground />
 
       <div className={`scroll-indicator ${styles.scroll}`}>
         <span>Scroll</span>
         <div className={styles.scrollLine}>
-          <motion.div 
+          <motion.div
             className={styles.scrollDot}
             animate={{ y: [0, 50, 0] }}
             transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}

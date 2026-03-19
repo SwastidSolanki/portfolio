@@ -22,7 +22,7 @@ const About: React.FC = () => {
       // Staggered text reveal for about paragraph
       const lines = gsap.utils.toArray('.about-line');
       lines.forEach((line: any) => {
-        gsap.fromTo(line, 
+        gsap.fromTo(line,
           { y: 50, opacity: 0 },
           {
             y: 0,
@@ -36,33 +36,33 @@ const About: React.FC = () => {
           }
         );
       });
-      
+
     }, container);
-    
+
     return () => ctx.revert();
   }, []);
 
   return (
     <section id="about" className={styles.about} ref={container}>
       <div className={`about-left ${styles.left}`}>
-        <h2>Who <br/> I <span className="text-gradient">Am</span></h2>
+        <h2>Who <br /> I <span className="text-gradient">Am</span></h2>
       </div>
       <div className={styles.right}>
         <div className={styles.textBlock}>
-          <div className={styles.lineOverflow}><p className="about-line">I am a passionate creative developer</p></div>
-          <div className={styles.lineOverflow}><p className="about-line">who lives at the intersection of</p></div>
-          <div className={styles.lineOverflow}><p className="about-line">design and technology. I build</p></div>
-          <div className={styles.lineOverflow}><p className="about-line">immersive web experiences that</p></div>
-          <div className={styles.lineOverflow}><p className="about-line text-gradient">leave a lasting impression.</p></div>
+          <div className={styles.lineOverflow}><p className="about-line">Hi, I'm Swastid Solanki.</p></div>
+          <div className={styles.lineOverflow}><p className="about-line">I have 2+ years of experience</p></div>
+          <div className={styles.lineOverflow}><p className="about-line">developing fullstack apps, now focusing</p></div>
+          <div className={styles.lineOverflow}><p className="about-line">on Data Engineering and building</p></div>
+          <div className={styles.lineOverflow}><p className="about-line text-gradient">robust architectures on AWS.</p></div>
         </div>
-        
+
         <div className={styles.stats}>
           <div className="about-line">
-            <h3>5+</h3>
+            <h3>2+</h3>
             <p>Years Experience</p>
           </div>
           <div className="about-line">
-            <h3>40+</h3>
+            <h3>10+</h3>
             <p>Projects Launched</p>
           </div>
         </div>

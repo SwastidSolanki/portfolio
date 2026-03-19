@@ -7,10 +7,27 @@ import styles from './Work.module.css';
 gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
-  { id: 1, title: 'Ethereal', category: 'WebGL Experience' },
-  { id: 2, title: 'Velocity', category: 'E-Commerce Platform' },
-  { id: 3, title: 'Aura', category: 'Brand Identity & Web' },
-  { id: 4, title: 'Nexus', category: 'SaaS Application' }
+  {
+    id: 1,
+    title: 'Blog App',
+    category: 'Full-Stack Application',
+    link: 'https://weblogslive.vercel.app/',
+    image: 'https://api.microlink.io/?url=https://weblogslive.vercel.app/&screenshot=true&meta=false&embed=screenshot.url'
+  },
+  {
+    id: 2,
+    title: 'Frontend Quiz',
+    category: 'Interactive UI / React',
+    link: 'https://frontend-quiz-app-teal.vercel.app',
+    image: 'https://api.microlink.io/?url=https://frontend-quiz-app-teal.vercel.app&screenshot=true&meta=false&embed=screenshot.url'
+  },
+  {
+    id: 3,
+    title: 'NFT Marketplace',
+    category: 'Web3 & Blockchain',
+    link: 'https://nft-marketplacemp.vercel.app',
+    image: 'https://api.microlink.io/?url=https://nft-marketplacemp.vercel.app&screenshot=true&meta=false&embed=screenshot.url'
+  }
 ];
 
 const Work: React.FC = () => {
@@ -19,9 +36,9 @@ const Work: React.FC = () => {
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
       const cards = gsap.utils.toArray('.work-card');
-      
+
       cards.forEach((card: any) => {
-        gsap.fromTo(card, 
+        gsap.fromTo(card,
           { y: 100, opacity: 0 },
           {
             y: 0,
@@ -35,9 +52,9 @@ const Work: React.FC = () => {
             }
           }
         );
-        
+
         const img = card.querySelector('.parallax-img');
-        if(img) {
+        if (img) {
           gsap.to(img, {
             yPercent: 20,
             ease: "none",
@@ -51,7 +68,7 @@ const Work: React.FC = () => {
         }
       });
     }, container);
-    
+
     return () => ctx.revert();
   }, []);
 
@@ -63,18 +80,21 @@ const Work: React.FC = () => {
       </div>
 
       <div className={styles.grid}>
-        {projects.map((project, index) => (
-          <motion.div 
+        {projects.map((project) => (
+          <motion.a
             key={project.id}
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
             className={`work-card hover-target ${styles.card}`}
             whileHover={{ y: -10 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <div className={styles.imageContainer}>
-              <div 
-                className={`parallax-img ${styles.image}`} 
+              <div
+                className={`parallax-img ${styles.image}`}
                 style={{
-                  background: `linear-gradient(${120 + index * 40}deg, var(--accent-${(index % 2) + 1}), var(--bg-primary))`
+                  backgroundImage: `url(${project.image})`
                 }}
               />
               <div className={styles.overlay}>
@@ -85,7 +105,7 @@ const Work: React.FC = () => {
               <h3>{project.title}</h3>
               <p>{project.category}</p>
             </div>
-          </motion.div>
+          </motion.a>
         ))}
       </div>
     </section>

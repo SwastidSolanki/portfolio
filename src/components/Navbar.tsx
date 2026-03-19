@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
     } else {
       setHidden(false);
     }
-    
+
     setScrolled(latest > 50);
   });
 
@@ -29,13 +29,14 @@ const Navbar: React.FC = () => {
       className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`}
     >
       <div className={styles.logo}>
-        <span className="text-gradient hover-target">Portfolio.</span>
+        <span className="text-gradient hover-target">Swastid!</span>
       </div>
-      <ul className={styles.links}>
-        <li><a href="#work" className="hover-target">Work</a></li>
-        <li><a href="#about" className="hover-target">About</a></li>
-        <li><a href="#contact" className="hover-target">Contact</a></li>
-      </ul>
+      <div className={styles.rightContent}>
+        <ul className={styles.links}>
+          <li><a href="#about" className="hover-target">About</a></li>
+          <li><a href="#ecosystem" className="hover-target">Work</a></li>
+        </ul>
+      </div>
     </motion.nav>
   );
 };
