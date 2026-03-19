@@ -9,3 +9,9 @@
   z-index: 9999;
   transform-origin: center center;
 }
+
+@media (max-width: 768px) {
+  .cursor {
+    display: none !important;
+  }
+}

@@ -1,0 +1,209 @@
+.section {
+  padding: 6rem 0 6rem;
+  overflow: hidden;
+}
+
+.heading {
+  text-align: center;
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: -0.03em;
+  margin-bottom: 3rem;
+  font-family: var(--font-display);
+}
+
+/* Marquee Container */
+.marqueeWrapper {
+  position: relative;
+  width: 100%;
+  overflow: visible; /* Changed to visible to allow hover effects to extend */
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  padding: 5rem 0 3rem; /* Increased top padding for tooltip */
+}
+
+.marqueeTrack {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  animation: scroll 40s linear infinite;
+}
+
+.marqueeWrapper:hover .marqueeTrack {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Tool Card */
+.toolCard {
+  flex-shrink: 0;
+  width: 90px;
+  height: 90px;
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.toolCard:hover {
+  transform: translateY(-8px) scale(1.05);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+:global(.light-theme) .toolCard {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+:global(.light-theme) .toolCard:hover {
+  background: #fcfcfc;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Tool Icon */
+.toolIcon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+/* Add a subtle glow in dark mode for better contrast of all icons */
+:global(.dark-theme) .toolIcon,
+body:not(.light-theme) .toolIcon {
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.4));
+}
+
+.toolCard:hover .toolIcon {
+  transform: scale(1.1);
+}
+
+/* Tool Name Tooltip */
+.toolName {
+  position: absolute;
+  top: -2.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  background: #000000;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-family: var(--font-body);
+  z-index: 10;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.toolName::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background: #000000;
+}
+
+.toolCard:hover .toolName,
+.toolName.showTooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Specific inversion for black logos */
+.invertInDark {
+  filter: brightness(0) invert(1) !important;
+  opacity: 0.9;
+}
+
+:global(.light-theme) .invertInDark {
+  filter: none !important;
+  opacity: 1;
+}
+
+.desktopOnly {
+  display: flex;
+}
+
+/* Responsive Overhaul */
+@media (max-width: 768px) {
+  .section {
+    padding: 4rem 1rem 6rem;
+  }
+  
+  .marqueeWrapper {
+    mask-image: none;
+    -webkit-mask-image: none;
+    overflow: visible;
+    padding: 0;
+  }
+
+  .marqueeTrack {
+    animation: none !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 1.25rem !important;
+    transform: none !important;
+  }
+
+  .desktopOnly {
+    display: none !important;
+  }
+
+  .toolCard {
+    width: 80px;
+    height: 80px;
+    transition: transform 0.2s ease;
+  }
+
+  .toolCard:active {
+    transform: scale(0.95);
+  }
+
+  .toolIcon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .toolName {
+    top: -2.8rem;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .marqueeTrack {
+    gap: 1rem !important;
+  }
+
+  .toolCard {
+    width: 70px;
+    height: 70px;
+  }
+
+  .toolIcon {
+    width: 32px;
+    height: 32px;
+  }
+}

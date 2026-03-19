@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
       <div className={styles.rightContent}>
         <ul className={styles.links}>
           <li><a href="#about" className="hover-target">About</a></li>
-          <li><a href="#ecosystem" className="hover-target">Work</a></li>
+          <li><a href="#ecosystem" className="hover-target">Ecosystem</a></li>
         </ul>
       </div>
     </motion.nav>

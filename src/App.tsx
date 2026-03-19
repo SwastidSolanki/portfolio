@@ -2,6 +2,7 @@ import Layout from './components/Layout';
 import Hero from './components/Hero';
 import BentoGrid from './components/BentoGrid';
 import About from './components/About';
+import TechStack from './components/TechStack';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <div id="ecosystem">
         <BentoGrid />
       </div>
+      <TechStack />
     </Layout>
   );
 }

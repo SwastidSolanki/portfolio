@@ -12,19 +12,76 @@ const BentoGrid: React.FC = () => {
       { i: 'focus', x: 0, y: 0, w: 2, h: 1 },
       { i: 'gmail', x: 2, y: 0, w: 1, h: 1 },
       { i: 'theme', x: 3, y: 0, w: 1, h: 1 },
-      
       { i: 'services', x: 0, y: 1, w: 2, h: 1 },
       { i: 'linkedin', x: 2, y: 1, w: 1, h: 1 },
       { i: 'insta', x: 3, y: 1, w: 1, h: 1 },
-      
       { i: 'github', x: 0, y: 2, w: 2, h: 1 },
       { i: 'nft', x: 2, y: 2, w: 2, h: 2 },
-      
-      { i: 'spotify', x: 0, y: 3, w: 2, h: 1 },
-      
+      { i: 'simon', x: 0, y: 3, w: 2, h: 1 },
       { i: 'proj1', x: 0, y: 4, w: 1, h: 1 },
-      { i: 'proj2', x: 1, y: 4, w: 2, h: 1 },
+      { i: 'spotify', x: 1, y: 4, w: 1, h: 1 },
+      { i: 'proj2', x: 2, y: 4, w: 1, h: 1 },
       { i: 'topbar', x: 3, y: 4, w: 1, h: 1 }
+    ],
+    md: [
+      { i: 'focus', x: 0, y: 0, w: 2, h: 1 },
+      { i: 'gmail', x: 2, y: 0, w: 1, h: 1 },
+      { i: 'theme', x: 3, y: 0, w: 1, h: 1 },
+      { i: 'services', x: 0, y: 1, w: 2, h: 1 },
+      { i: 'linkedin', x: 2, y: 1, w: 1, h: 1 },
+      { i: 'insta', x: 3, y: 1, w: 1, h: 1 },
+      { i: 'github', x: 0, y: 2, w: 2, h: 1 },
+      { i: 'nft', x: 2, y: 2, w: 2, h: 2 },
+      { i: 'simon', x: 0, y: 3, w: 2, h: 1 },
+      { i: 'proj1', x: 0, y: 4, w: 1, h: 1 },
+      { i: 'spotify', x: 1, y: 4, w: 1, h: 1 },
+      { i: 'proj2', x: 2, y: 4, w: 1, h: 1 },
+      { i: 'topbar', x: 3, y: 4, w: 1, h: 1 }
+    ],
+    sm: [
+      { i: 'focus', x: 0, y: 0, w: 2, h: 1 },
+      { i: 'gmail', x: 0, y: 1, w: 1, h: 1 },
+      { i: 'theme', x: 1, y: 1, w: 1, h: 1 },
+      { i: 'services', x: 0, y: 2, w: 2, h: 2 },
+      { i: 'linkedin', x: 0, y: 4, w: 1, h: 1 },
+      { i: 'insta', x: 1, y: 4, w: 1, h: 1 },
+      { i: 'github', x: 0, y: 5, w: 2, h: 1 },
+      { i: 'spotify', x: 0, y: 6, w: 1, h: 1 },
+      { i: 'proj1', x: 1, y: 6, w: 1, h: 1 },
+      { i: 'proj2', x: 0, y: 7, w: 1, h: 1 },
+      { i: 'topbar', x: 1, y: 7, w: 1, h: 1 },
+      { i: 'nft', x: 0, y: 8, w: 2, h: 2 },
+      { i: 'simon', x: 0, y: 10, w: 2, h: 1 }
+    ],
+    xs: [
+      { i: 'focus', x: 0, y: 0, w: 1, h: 1 },
+      { i: 'gmail', x: 0, y: 1, w: 1, h: 1 },
+      { i: 'theme', x: 0, y: 2, w: 1, h: 1 },
+      { i: 'services', x: 0, y: 3, w: 1, h: 2 },
+      { i: 'linkedin', x: 0, y: 5, w: 1, h: 1 },
+      { i: 'insta', x: 0, y: 6, w: 1, h: 1 },
+      { i: 'github', x: 0, y: 7, w: 1, h: 1 },
+      { i: 'spotify', x: 0, y: 8, w: 1, h: 1 },
+      { i: 'nft', x: 0, y: 9, w: 1, h: 2 },
+      { i: 'proj1', x: 0, y: 11, w: 1, h: 1 },
+      { i: 'proj2', x: 0, y: 12, w: 1, h: 1 },
+      { i: 'simon', x: 0, y: 13, w: 1, h: 1 },
+      { i: 'topbar', x: 0, y: 14, w: 1, h: 1 }
+    ],
+    xxs: [
+      { i: 'focus', x: 0, y: 0, w: 1, h: 1 },
+      { i: 'gmail', x: 0, y: 1, w: 1, h: 1 },
+      { i: 'theme', x: 0, y: 2, w: 1, h: 1 },
+      { i: 'services', x: 0, y: 3, w: 1, h: 2 },
+      { i: 'linkedin', x: 0, y: 5, w: 1, h: 1 },
+      { i: 'insta', x: 0, y: 6, w: 1, h: 1 },
+      { i: 'github', x: 0, y: 7, w: 1, h: 1 },
+      { i: 'spotify', x: 0, y: 8, w: 1, h: 1 },
+      { i: 'nft', x: 0, y: 9, w: 1, h: 2 },
+      { i: 'proj1', x: 0, y: 11, w: 1, h: 1 },
+      { i: 'proj2', x: 0, y: 12, w: 1, h: 1 },
+      { i: 'simon', x: 0, y: 13, w: 1, h: 1 },
+      { i: 'topbar', x: 0, y: 14, w: 1, h: 1 }
     ]
   };
 
@@ -88,7 +145,7 @@ const BentoGrid: React.FC = () => {
                  transformData={(contributions) => {
                    const today = new Date();
                    const past = new Date();
-                   past.setMonth(today.getMonth() - 5);
+                   past.setMonth(today.getMonth() - 3);
                    return contributions.filter((act) => new Date(act.date) >= past);
                  }}
                />
@@ -114,8 +171,8 @@ const BentoGrid: React.FC = () => {
           <div key="gmail" className={`${styles.card} ${styles.draggable} ${styles.socialMiniCard} ${styles.gmailBg}`}>
              <div className={styles.navLinkCenter}>
                <Mail size={48} className={styles.giantIconImage} />
-               <a href="mailto:swastid03@gmail.com" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnMini}>↗</a>
              </div>
+             <span className={styles.gmailLabel}>swastid03@gmail.com</span>
           </div>
 
           {/* Theme Toggle Module */}
@@ -192,6 +249,17 @@ const BentoGrid: React.FC = () => {
                <div className={styles.projectMeta}>
                  <h3 className={styles.giantProjectTitle}>NFT Marketplace</h3>
                  <p>Web3 & Blockchain Full Scale Application</p>
+               </div>
+             </div>
+          </div>
+
+          {/* Simon Game */}
+          <div key="simon" className={`${styles.card} ${styles.draggable} ${styles.projectCard}`} style={{backgroundImage: 'url(https://api.microlink.io/?url=https://thesimongame03.vercel.app/&screenshot=true&meta=false&embed=screenshot.url)'}}>
+             <div className={styles.projectOverlay}>
+               <a href="https://thesimongame03.vercel.app/" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnProject}>↗</a>
+               <div className={styles.projectMeta}>
+                 <h3 className={styles.giantProjectTitle}>Simon Game</h3>
+                 <p>Interactive Web Game</p>
                </div>
              </div>
           </div>

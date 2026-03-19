@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { motion } from 'framer-motion';
 import ThreeBackground from './ThreeBackground';
@@ -6,6 +6,13 @@ import styles from './Hero.module.css';
 
 const Hero: React.FC = () => {
   const comp = useRef(null);
+  const [showBlob, setShowBlob] = useState(window.innerWidth > 768);
+
+  useEffect(() => {
+    const handleResize = () => setShowBlob(window.innerWidth > 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
@@ -52,12 +59,13 @@ const Hero: React.FC = () => {
         </h1>
 
         <p className={`hero-sub ${styles.subtitle}`}>
-          Passionate about ThreeJS, GSAP, Data Engineering, Cloud Infrastructure, and building
+          Passionate about ThreeJS, GSAP, Automation, Python, Data Engineering, Data Visualization, ETL Pipelines,
+          Cloud Infrastructure, and building
           scalable solutions on AWS.
         </p>
       </div>
 
-      <ThreeBackground />
+      {showBlob && <ThreeBackground />}
 
       <div className={`scroll-indicator ${styles.scroll}`}>
         <span>Scroll</span>
