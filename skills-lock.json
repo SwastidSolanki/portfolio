@@ -5,6 +5,11 @@
       "source": "vercel-labs/skills",
       "sourceType": "github",
       "computedHash": "645b891da1edbae76ab79c7b088d4e73397464f8396edaf773c0e01971ce75d6"
+    },
+    "responsive-design": {
+      "source": "supercent-io/skills-template",
+      "sourceType": "github",
+      "computedHash": "1c2c94867cc1eeca74977d57b0d9818616934a62a58e100d9350ff11cd7244fd"
     }
   }
 }

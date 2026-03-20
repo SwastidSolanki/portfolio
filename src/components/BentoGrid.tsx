@@ -9,109 +9,146 @@ import styles from './BentoGrid.module.css';
 const BentoGrid: React.FC = () => {
   const layouts = {
     lg: [
-      { i: 'focus', x: 0, y: 0, w: 2, h: 1 },
-      { i: 'gmail', x: 2, y: 0, w: 1, h: 1 },
-      { i: 'linkedin', x: 3, y: 0, w: 1, h: 1 },
-      { i: 'services', x: 0, y: 1, w: 2, h: 1 },
-      { i: 'insta', x: 2, y: 1, w: 1, h: 1 },
-      { i: 'topbar', x: 3, y: 1, w: 1, h: 1 },
-      { i: 'github', x: 0, y: 2, w: 2, h: 1 },
-      { i: 'nft', x: 2, y: 2, w: 2, h: 2 },
-      { i: 'simon', x: 0, y: 3, w: 2, h: 1 },
-      { i: 'proj1', x: 0, y: 4, w: 1, h: 1 },
-      { i: 'spotify', x: 1, y: 4, w: 1, h: 1 },
-      { i: 'proj2', x: 2, y: 4, w: 1, h: 1 }
+      { i: 'focus', x: 0, y: 0, w: 3, h: 2 },
+      { i: 'spotify', x: 3, y: 0, w: 3, h: 2 },
+      { i: 'gmail', x: 6, y: 0, w: 2, h: 2 },
+      { i: 'insta', x: 8, y: 0, w: 2, h: 2 },
+      
+      { i: 'services', x: 0, y: 2, w: 6, h: 2 },
+      { i: 'linkedin', x: 6, y: 2, w: 2, h: 2 },
+      { i: 'topbar', x: 8, y: 2, w: 2, h: 2 },
+
+      { i: 'nft', x: 0, y: 4, w: 6, h: 4 },
+      { i: 'github', x: 6, y: 4, w: 4, h: 2 },
+      { i: 'proj2', x: 6, y: 6, w: 4, h: 3 },
+      { i: 'simon', x: 0, y: 8, w: 6, h: 4 },
+      { i: 'proj1', x: 6, y: 9, w: 4, h: 3 }
     ],
     md: [
-      { i: 'focus', x: 0, y: 0, w: 2, h: 1 },
-      { i: 'gmail', x: 2, y: 0, w: 1, h: 1 },
-      { i: 'linkedin', x: 3, y: 0, w: 1, h: 1 },
-      { i: 'services', x: 0, y: 1, w: 2, h: 1 },
-      { i: 'insta', x: 2, y: 1, w: 1, h: 1 },
-      { i: 'topbar', x: 3, y: 1, w: 1, h: 1 },
-      { i: 'github', x: 0, y: 2, w: 2, h: 1 },
-      { i: 'nft', x: 2, y: 2, w: 2, h: 2 },
-      { i: 'simon', x: 0, y: 3, w: 2, h: 1 },
-      { i: 'proj1', x: 0, y: 4, w: 1, h: 1 },
-      { i: 'spotify', x: 1, y: 4, w: 1, h: 1 },
-      { i: 'proj2', x: 2, y: 4, w: 1, h: 1 }
+      { i: 'focus', x: 0, y: 0, w: 3, h: 2 },
+      { i: 'spotify', x: 3, y: 0, w: 3, h: 2 },
+      { i: 'gmail', x: 6, y: 0, w: 2, h: 2 },
+      { i: 'insta', x: 8, y: 0, w: 2, h: 2 },
+      
+      { i: 'services', x: 0, y: 2, w: 6, h: 2 },
+      { i: 'linkedin', x: 6, y: 2, w: 2, h: 2 },
+      { i: 'topbar', x: 8, y: 2, w: 2, h: 2 },
+
+      { i: 'nft', x: 0, y: 4, w: 6, h: 4 },
+      { i: 'github', x: 6, y: 4, w: 4, h: 2 },
+      { i: 'proj2', x: 6, y: 6, w: 4, h: 3 },
+      { i: 'simon', x: 0, y: 8, w: 6, h: 4 },
+      { i: 'proj1', x: 6, y: 9, w: 4, h: 3 }
     ],
     sm: [
-      { i: 'focus', x: 0, y: 0, w: 2, h: 1 },
-      { i: 'gmail', x: 0, y: 1, w: 1, h: 1 },
-      { i: 'linkedin', x: 1, y: 1, w: 1, h: 1 },
-      { i: 'services', x: 0, y: 2, w: 2, h: 1 },
+      { i: 'focus', x: 0, y: 0, w: 1, h: 1 },
+      { i: 'spotify', x: 0, y: 1, w: 1, h: 1 },
+      { i: 'gmail', x: 0, y: 2, w: 1, h: 1 },
       { i: 'insta', x: 0, y: 3, w: 1, h: 1 },
-      { i: 'topbar', x: 1, y: 3, w: 1, h: 1 },
-      { i: 'github', x: 0, y: 4, w: 2, h: 1 },
-      { i: 'spotify', x: 0, y: 5, w: 1, h: 1 },
-      { i: 'proj1', x: 1, y: 5, w: 1, h: 1 },
-      { i: 'proj2', x: 0, y: 6, w: 1, h: 1 },
-      { i: 'nft', x: 0, y: 7, w: 2, h: 1 },
-      { i: 'simon', x: 0, y: 8, w: 2, h: 1 }
+      { i: 'services', x: 0, y: 4, w: 1, h: 2 },
+      { i: 'linkedin', x: 0, y: 6, w: 1, h: 1 },
+      { i: 'simon', x: 0, y: 7, w: 1, h: 1 },
+      { i: 'github', x: 0, y: 8, w: 1, h: 1 },
+      { i: 'nft', x: 0, y: 9, w: 1, h: 2 },
+      { i: 'proj2', x: 0, y: 11, w: 1, h: 1 },
+      { i: 'proj1', x: 0, y: 12, w: 1, h: 1 }
     ],
     xs: [
       { i: 'focus', x: 0, y: 0, w: 1, h: 1 },
-      { i: 'gmail', x: 0, y: 1, w: 1, h: 1 },
-      { i: 'linkedin', x: 0, y: 2, w: 1, h: 1 },
+      { i: 'spotify', x: 0, y: 1, w: 1, h: 1 },
+      { i: 'gmail', x: 0, y: 2, w: 1, h: 1 },
       { i: 'insta', x: 0, y: 3, w: 1, h: 1 },
-      { i: 'services', x: 0, y: 4, w: 1, h: 1 },
-      { i: 'github', x: 0, y: 5, w: 1, h: 1 },
-      { i: 'spotify', x: 0, y: 6, w: 1, h: 1 },
-      { i: 'nft', x: 0, y: 7, w: 1, h: 1 },
-      { i: 'proj1', x: 0, y: 8, w: 1, h: 1 },
-      { i: 'proj2', x: 0, y: 9, w: 1, h: 1 },
-      { i: 'simon', x: 0, y: 10, w: 1, h: 1 },
-      { i: 'topbar', x: 0, y: 11, w: 1, h: 1 }
+      { i: 'services', x: 0, y: 4, w: 1, h: 2 },
+      { i: 'linkedin', x: 0, y: 6, w: 1, h: 1 },
+      { i: 'simon', x: 0, y: 7, w: 1, h: 1 },
+      { i: 'github', x: 0, y: 8, w: 1, h: 1 },
+      { i: 'nft', x: 0, y: 9, w: 1, h: 2 },
+      { i: 'proj2', x: 0, y: 11, w: 1, h: 1 },
+      { i: 'proj1', x: 0, y: 12, w: 1, h: 1 }
     ],
     xxs: [
       { i: 'focus', x: 0, y: 0, w: 1, h: 1 },
-      { i: 'gmail', x: 0, y: 1, w: 1, h: 1 },
-      { i: 'linkedin', x: 0, y: 2, w: 1, h: 1 },
+      { i: 'spotify', x: 0, y: 1, w: 1, h: 1 },
+      { i: 'gmail', x: 0, y: 2, w: 1, h: 1 },
       { i: 'insta', x: 0, y: 3, w: 1, h: 1 },
-      { i: 'services', x: 0, y: 4, w: 1, h: 1 },
-      { i: 'github', x: 0, y: 5, w: 1, h: 1 },
-      { i: 'spotify', x: 0, y: 6, w: 1, h: 1 },
-      { i: 'nft', x: 0, y: 7, w: 1, h: 1 },
-      { i: 'proj1', x: 0, y: 8, w: 1, h: 1 },
-      { i: 'proj2', x: 0, y: 9, w: 1, h: 1 },
-      { i: 'simon', x: 0, y: 10, w: 1, h: 1 },
-      { i: 'topbar', x: 0, y: 11, w: 1, h: 1 }
+      { i: 'services', x: 0, y: 4, w: 1, h: 2 },
+      { i: 'linkedin', x: 0, y: 6, w: 1, h: 1 },
+      { i: 'simon', x: 0, y: 7, w: 1, h: 1 },
+      { i: 'github', x: 0, y: 8, w: 1, h: 1 },
+      { i: 'nft', x: 0, y: 9, w: 1, h: 2 },
+      { i: 'proj2', x: 0, y: 11, w: 1, h: 1 },
+      { i: 'proj1', x: 0, y: 12, w: 1, h: 1 }
     ]
   };
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(1200);
+  const [isDark, setIsDark] = useState(true);
+  const [isTouch, setIsTouch] = useState(false);
+
   useEffect(() => {
     if (!containerRef.current) return;
-    const observer = new ResizeObserver((entries) => {
-      setWidth(entries[0].contentRect.width);
+    
+    // Initial checks
+    setIsDark(!document.documentElement.classList.contains('light-theme'));
+    
+    const checkTouch = () => {
+      const isTouchCapability = (
+        'ontouchstart' in window ||
+        navigator.maxTouchPoints > 0 ||
+        window.matchMedia('(pointer: coarse)').matches
+      );
+      const isMobileWidth = window.innerWidth <= 768;
+      // We consider it a "touch-oriented" view if it has touch capability OR is mobile-sized
+      return isTouchCapability || isMobileWidth;
+    };
+    
+    const updateState = () => {
+      setIsTouch(checkTouch());
+      if (containerRef.current) {
+        setWidth(containerRef.current.offsetWidth);
+      }
+    };
+
+    updateState();
+    window.addEventListener('resize', updateState);
+
+    // Theme listener
+    const themeObserver = new MutationObserver(() => {
+      setIsDark(!document.documentElement.classList.contains('light-theme'));
     });
-    observer.observe(containerRef.current);
-    return () => observer.disconnect();
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+    return () => {
+      window.removeEventListener('resize', updateState);
+      themeObserver.disconnect();
+    };
   }, []);
 
   const goToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  const isMobile = width <= 768;
+  const rowHeight = isMobile ? 180 : 116;
 
   const gridProps: any = {
     className: "layout",
     layouts,
     width,
     breakpoints: {lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0},
-    cols: {lg: 4, md: 4, sm: 2, xs: 1, xxs: 1},
-    rowHeight: 160,
+    cols: {lg: 10, md: 10, sm: 1, xs: 1, xxs: 1},
+    rowHeight,
     containerPadding: [0, 0],
-    margin: [24, 24],
-    isDraggable: true,
-    isResizable: true,
+    margin: [16, 16],
+    isDraggable: !isMobile,
+    isResizable: !isMobile,
     isBounded: true,
-    compactType: "horizontal",
+    compactType: "vertical",
     verticalCompact: true,
     useCSSTransforms: true
   };
 
   return (
-    <section className={styles.bentoSection}>
+    <section className={styles.bentoSection} data-touch={isTouch}>
       <div className={styles.container} ref={containerRef}>
         <div className={styles.header}>
           <h2 className={styles.title}>The <span className="text-gradient">Ecosystem</span></h2>
@@ -125,7 +162,7 @@ const BentoGrid: React.FC = () => {
              <div className={styles.calendarWrapper}>
                <GitHubCalendar 
                  username="SwastidSolanki" 
-                 colorScheme="dark" 
+                 colorScheme={isDark ? "dark" : "light"} 
                  blockSize={12} 
                  blockMargin={5} 
                  fontSize={12}
@@ -155,7 +192,12 @@ const BentoGrid: React.FC = () => {
           </div>
 
           {/* Mail / Gmail Connect */}
-          <div key="gmail" className={`${styles.card} ${styles.draggable} ${styles.socialMiniCard} ${styles.gmailBg}`}>
+          <div 
+            key="gmail" 
+            className={`${styles.card} ${styles.draggable} ${styles.socialMiniCard} ${styles.gmailBg}`}
+            onClick={() => isTouch && (window.location.href = 'mailto:swastid03@gmail.com')}
+          >
+             {!isTouch && <a href="mailto:swastid03@gmail.com" className={styles.redirectBtnMini}>↗</a>}
              <div className={styles.navLinkCenter}>
                <Mail size={48} className={styles.giantIconImage} />
              </div>
@@ -169,43 +211,56 @@ const BentoGrid: React.FC = () => {
              <h3 className={styles.servicesTitle}>Services Offered / What I do</h3>
              <div className={styles.servicesSplit}>
                <div className={styles.serviceCol}>
-                 <div className={styles.serviceIcons}>
-                   <img src="https://simpleicons.org/icons/nextdotjs.svg" alt="Next" className={styles.serviceIcon} />
-                   <img src="https://simpleicons.org/icons/react.svg" alt="React" className={styles.serviceIcon} />
-                 </div>
-                 <p className={styles.serviceLabel}>Product Engineering</p>
-               </div>
-               <div className={styles.serviceDivider}></div>
-               <div className={styles.serviceCol}>
-                 <div className={styles.serviceIcons}>
-                   <img src="https://simpleicons.org/icons/nodedotjs.svg" alt="Node" className={styles.serviceIcon} />
-                   <img src="https://simpleicons.org/icons/postgresql.svg" alt="PostgreSQL" className={styles.serviceIcon} />
-                 </div>
+                  <div className={styles.serviceIcons}>
+                    <img src="https://cdn.simpleicons.org/nextdotjs/white" alt="Next" className={styles.serviceIconNext} />
+                    <img src="https://cdn.simpleicons.org/react/61DAFB" alt="React" className={styles.serviceIcon} />
+                  </div>
+                  <p className={styles.serviceLabel}>Product Engineering</p>
+                </div>
+                <div className={styles.serviceDivider}></div>
+                <div className={styles.serviceCol}>
+                  <div className={styles.serviceIcons}>
+                    <img src="https://cdn.simpleicons.org/nodedotjs/339933" alt="Node" className={styles.serviceIcon} />
+                    <img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL" className={styles.serviceIcon} />
+                  </div>
                  <p className={styles.serviceLabel}>Full Stack Development</p>
                </div>
              </div>
           </div>
 
           {/* LinkedIn Connect */}
-          <div key="linkedin" className={`${styles.card} ${styles.draggable} ${styles.socialMiniCard} ${styles.linkedinBg}`}>
+          <div 
+            key="linkedin" 
+            className={`${styles.card} ${styles.draggable} ${styles.socialMiniCard} ${styles.linkedinBg}`}
+            onClick={() => isTouch && window.open('https://www.linkedin.com/in/swastidsolanki/', '_blank')}
+          >
+             {!isTouch && <a href="https://www.linkedin.com/in/swastidsolanki/" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnMini}>↗</a>}
              <div className={styles.navLinkCenter}>
                <Linkedin size={80} className={styles.giantIcon} />
-               <a href="https://www.linkedin.com/in/swastidsolanki/" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnMini}>↗</a>
              </div>
           </div>
 
           {/* Instagram Connect */}
-          <div key="insta" className={`${styles.card} ${styles.draggable} ${styles.socialMiniCard} ${styles.instaBg}`}>
+          <div 
+            key="insta" 
+            className={`${styles.card} ${styles.draggable} ${styles.socialMiniCard} ${styles.instaBg}`}
+            onClick={() => isTouch && window.open('https://instagram.com/swastidsolankii', '_blank')}
+          >
+             {!isTouch && <a href="https://instagram.com/swastidsolankii" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnMini}>↗</a>}
              <div className={styles.navLinkCenter}>
                <Instagram size={80} className={styles.giantIcon} />
-               <a href="https://instagram.com/swastidsolankii" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnMini}>↗</a>
              </div>
           </div>
 
           {/* Project 1 */}
-          <div key="proj1" className={`${styles.card} ${styles.draggable} ${styles.projectCard}`} style={{backgroundImage: 'url(https://api.microlink.io/?url=https://weblogslive.vercel.app/&screenshot=true&meta=false&embed=screenshot.url)'}}>
+          <div 
+             key="proj1" 
+             className={`${styles.card} ${styles.draggable} ${styles.projectCard}`} 
+             style={{backgroundImage: 'url(https://api.microlink.io/?url=https://weblogslive.vercel.app/&screenshot=true&meta=false&embed=screenshot.url)'}}
+             onClick={() => isTouch && window.open('https://weblogslive.vercel.app/', '_blank')}
+          >
+             {!isTouch && <a href="https://weblogslive.vercel.app/" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnProject}>↗</a>}
              <div className={styles.projectOverlay}>
-               <a href="https://weblogslive.vercel.app/" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnProject}>↗</a>
                <div className={styles.projectMeta}>
                  <h3>Blog App</h3>
                  <p>Full-Stack Application</p>
@@ -214,9 +269,14 @@ const BentoGrid: React.FC = () => {
           </div>
 
           {/* Project 2 */}
-          <div key="proj2" className={`${styles.card} ${styles.draggable} ${styles.projectCard}`} style={{backgroundImage: 'url(https://api.microlink.io/?url=https://frontend-quiz-app-teal.vercel.app&screenshot=true&meta=false&embed=screenshot.url)'}}>
+          <div 
+             key="proj2" 
+             className={`${styles.card} ${styles.draggable} ${styles.projectCard}`} 
+             style={{backgroundImage: 'url(https://api.microlink.io/?url=https://frontend-quiz-app-teal.vercel.app&screenshot=true&meta=false&embed=screenshot.url)'}}
+             onClick={() => isTouch && window.open('https://frontend-quiz-app-teal.vercel.app', '_blank')}
+          >
+             {!isTouch && <a href="https://frontend-quiz-app-teal.vercel.app" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnProject}>↗</a>}
              <div className={styles.projectOverlay}>
-               <a href="https://frontend-quiz-app-teal.vercel.app" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnProject}>↗</a>
                <div className={styles.projectMeta}>
                  <h3>Frontend Quiz</h3>
                  <p>Interactive UI / React</p>
@@ -225,9 +285,14 @@ const BentoGrid: React.FC = () => {
           </div>
 
           {/* NFT Marketplace */}
-          <div key="nft" className={`${styles.card} ${styles.draggable} ${styles.projectCard}`} style={{backgroundImage: 'url(https://api.microlink.io/?url=https://nft-marketplacemp.vercel.app&screenshot=true&meta=false&embed=screenshot.url)'}}>
+          <div 
+             key="nft" 
+             className={`${styles.card} ${styles.draggable} ${styles.projectCard}`} 
+             style={{backgroundImage: 'url(https://api.microlink.io/?url=https://nft-marketplacemp.vercel.app&screenshot=true&meta=false&embed=screenshot.url)'}}
+             onClick={() => isTouch && window.open('https://nft-marketplacemp.vercel.app', '_blank')}
+          >
+             {!isTouch && <a href="https://nft-marketplacemp.vercel.app" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnProject}>↗</a>}
              <div className={styles.projectOverlay}>
-               <a href="https://nft-marketplacemp.vercel.app" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnProject}>↗</a>
                <div className={styles.projectMeta}>
                  <h3 className={styles.giantProjectTitle}>NFT Marketplace</h3>
                  <p>Web3 & Blockchain Full Scale Application</p>
@@ -236,9 +301,14 @@ const BentoGrid: React.FC = () => {
           </div>
 
           {/* Simon Game */}
-          <div key="simon" className={`${styles.card} ${styles.draggable} ${styles.projectCard}`} style={{backgroundImage: 'url(https://api.microlink.io/?url=https://thesimongame03.vercel.app/&screenshot=true&meta=false&embed=screenshot.url)'}}>
+          <div 
+             key="simon" 
+             className={`${styles.card} ${styles.draggable} ${styles.projectCard}`} 
+             style={{backgroundImage: 'url(https://api.microlink.io/?url=https://thesimongame03.vercel.app/&screenshot=true&meta=false&embed=screenshot.url)'}}
+             onClick={() => isTouch && window.open('https://thesimongame03.vercel.app/', '_blank')}
+          >
+             {!isTouch && <a href="https://thesimongame03.vercel.app/" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnProject}>↗</a>}
              <div className={styles.projectOverlay}>
-               <a href="https://thesimongame03.vercel.app/" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnProject}>↗</a>
                <div className={styles.projectMeta}>
                  <h3 className={styles.giantProjectTitle}>Simon Game</h3>
                  <p>Interactive Web Game</p>
@@ -246,13 +316,20 @@ const BentoGrid: React.FC = () => {
              </div>
           </div>
 
-          {/* Top Bar Button */}
-          <div key="topbar" className={`${styles.card} ${styles.draggable} ${styles.socialMiniCard} ${styles.themeModule}`} onClick={goToTop}>
-             <div className={styles.navLinkCenter}>
-               <ArrowUp size={48} className={styles.giantIcon} />
-             </div>
-          </div>
+          {/* Topbar/Arrow Card - Desktop Only */}
+          {width > 768 && (
+            <div 
+              key="topbar" 
+              className={`${styles.card} ${styles.draggable} ${styles.topbarCard}`} 
+              onClick={goToTop}
+            >
+              <div className={styles.navLinkCenter}>
+                <ArrowUp size={48} className={styles.topbarIcon} />
+              </div>
+            </div>
+          )}
 
+          {/* Connect Cards */}
         </ResponsiveGridLayout>
       </div>
     </section>

@@ -1,10 +1,33 @@
 .bentoSection {
-  padding: 8rem 4rem;
+  padding: 8rem 10%;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 :global(.light-theme) .bentoSection {
   border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.bentoSection[data-touch="true"] .redirectBtnProject,
+.bentoSection[data-touch="true"] .redirectBtnMini,
+.bentoSection[data-touch="true"] .redirectBtnApple {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .bentoSection {
+    padding: 4rem 4% 4rem 25% !important;
+  }
+  .redirectBtnProject, 
+  .redirectBtnMini, 
+  .redirectBtnApple {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .bentoSection {
+    padding: 8rem 12% 8rem 12% !important;
+  }
 }
 
 .container {
@@ -13,7 +36,7 @@
 }
 
 .header {
-  margin-bottom: 4rem;
+  margin-bottom: 6rem;
   text-align: center;
 }
 
@@ -26,20 +49,23 @@
 .subtitle {
   color: var(--text-secondary);
   font-size: 1.1rem;
+  font-family: var(--font-italic);
+  font-style: italic;
 }
 
 .card {
-  background: var(--bg-secondary);
+  background: var(--card-bg);
   border-radius: 12px;
   padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.15); /* Uniform elegant border */
+  border: 3px solid var(--card-border);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   position: absolute;
   cursor: grab;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 24px 48px rgba(0,0,0,0.6); /* Noticeable robust shadow */
+  color: var(--card-text);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.7);
 }
 
 .card:active {
@@ -54,13 +80,21 @@
 }
 
 :global(.light-theme) .card {
-  border: 1px solid rgba(0, 0, 0, 0.1); /* Uniform elegant border for Light Theme */
-  box-shadow: 0 20px 48px rgba(0,0,0,0.25); /* More popping shadow in light theme */
+  background: var(--card-bg);
+  border: 3px solid #000000;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.25);
+  color: var(--card-text);
+}
+
+:global(.light-theme) .card h2,
+:global(.light-theme) .card h3,
+:global(.light-theme) .card p {
+  color: var(--card-text);
 }
 
 :global(.light-theme) .card:hover {
-  border-color: rgba(0,0,0,0.3);
-  box-shadow: 0 24px 50px rgba(0,0,0,0.35);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
 .calendarWrapper {
@@ -76,6 +110,17 @@
 .calendarWrapper > article {
   overflow: hidden !important;
 }
+
+:global(.light-theme) .calendarWrapper svg rect {
+  stroke: #000000 !important;
+  stroke-width: 0.5px;
+}
+
+:global(.light-theme) .calendarWrapper [data-level="0"] { fill: #ebedf0 !important; }
+:global(.light-theme) .calendarWrapper [data-level="1"] { fill: #9be9a8 !important; }
+:global(.light-theme) .calendarWrapper [data-level="2"] { fill: #40c463 !important; }
+:global(.light-theme) .calendarWrapper [data-level="3"] { fill: #30a14e !important; }
+:global(.light-theme) .calendarWrapper [data-level="4"] { fill: #216e39 !important; }
 
 .calendarWrapper *::-webkit-scrollbar {
   display: none !important;
@@ -95,12 +140,12 @@
   position: relative;
 }
 
-.linkedinBg {
-  background: linear-gradient(135deg, #0077b5, #005e93);
+.linkedinBg, :global(.light-theme) .linkedinBg {
+  background: linear-gradient(135deg, #0077b5, #005e93) !important;
 }
 
-.instaBg {
-  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+.instaBg, :global(.light-theme) .instaBg {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
 }
 
 .navLinkCenter {
@@ -217,8 +262,9 @@
 .spotifyInfo {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 12px;
   margin-top: auto;
+  margin-bottom: 24px;
 }
 
 .albumArt {
@@ -281,6 +327,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 1.5rem !important;
 }
 
 .servicesTitle {
@@ -309,16 +356,26 @@
   gap: 0.5rem;
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
-  filter: grayscale(1) invert(1);
 }
 
-:global(.light-theme) .serviceIcons {
-  filter: grayscale(1);
+/* Service icon theme overrides removed to restore original colors */
+.serviceIcon svg {
+  filter: none !important;
+  opacity: 1 !important;
 }
 
 .serviceIcon {
   width: 24px;
   height: 24px;
+}
+
+.serviceIconNext {
+  width: 24px;
+  height: 24px;
+}
+
+:global(.light-theme) .serviceIconNext {
+  filter: invert(1) !important;
 }
 
 .serviceLabel {
@@ -341,13 +398,14 @@
 }
 
 :global(.light-theme) .serviceDivider {
-  background: rgba(0, 0, 0, 0.1);
+  background: #000000 !important;
+  opacity: 0.8;
 }
 
 /* Project Cards incorporated */
 .projectCard {
   background-size: cover;
-  background-position: center;
+  background-position: top center;
   padding: 0;
 }
 .projectOverlay {
@@ -357,15 +415,22 @@
   padding: 1.5rem;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 80%);
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 70%);
   color: white;
   text-decoration: none;
   transition: opacity 0.3s;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
 }
 
 :global(.light-theme) .projectOverlay {
-  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 100%);
-  color: #fff;
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 40%, transparent 100%) !important;
+}
+
+:global(.light-theme) .projectOverlay *,
+:global(.light-theme) .projectOverlay h3,
+:global(.light-theme) .projectOverlay p {
+  color: #fff !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
 .redirectBtnProject {
@@ -374,8 +439,8 @@
   right: 1.5rem;
   width: 44px;
   height: 44px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.15);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   display: flex;
@@ -385,12 +450,14 @@
   text-decoration: none;
   font-size: 1.5rem;
   transition: all 0.2s ease;
-  z-index: 10;
+  z-index: 100;
+  pointer-events: auto;
+  border: 1px solid rgba(255,255,255,0.2);
 }
 
 .redirectBtnProject:hover {
-  background: var(--text-primary);
-  color: var(--bg-primary);
+  background: white;
+  color: black;
   transform: scale(1.1) rotate(5deg);
 }
 
@@ -402,22 +469,35 @@
 .giantProjectTitle {
   font-size: 2.2rem !important;
   margin-bottom: 0.4rem !important;
+  font-weight: 800;
+  letter-spacing: -0.04em;
 }
 
 .projectMeta p {
   color: rgba(255,255,255,0.7);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  font-family: var(--font-italic);
+  font-style: italic;
 }
 
 /* Specific Focus & Mini Cards Styles */
 .focusCard {
-  background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary)) !important;
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%) !important;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   padding: 2.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border: 3px solid rgba(255, 255, 255, 0.15) !important;
+  position: relative;
+}
+
+.focusCard::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15), transparent 70%);
+  pointer-events: none;
 }
 
 .focusHeader {
@@ -432,17 +512,24 @@
   margin-bottom: 1rem;
 }
 
+:global(.light-theme) .focusHeader svg {
+  color: #ffffff !important;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
 .focusTitle {
   font-size: 2.2rem;
   line-height: 1.1;
   font-weight: 800;
-  color: #fff !important;
+  color: #ffffff !important;
 }
 
 .focusSub {
-  color: rgba(255, 255, 255, 0.8) !important;
-  font-size: 0.9rem;
-  margin-top: 0.3rem;
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+  font-family: var(--font-italic);
+  font-style: italic;
 }
 
 .gmailBg {
@@ -471,21 +558,39 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
+.focusLabel {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
 .redirectBtnMini {
   position: absolute;
-  top: 1rem;
-  right: 1.2rem;
-  font-size: 1.2rem;
-  color: inherit;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
   text-decoration: none;
-  opacity: 0.6;
+  font-size: 1.2rem;
   transition: all 0.2s ease;
-  z-index: 10;
+  z-index: 100;
+  pointer-events: auto;
+  border: 1px solid rgba(255,255,255,0.2);
 }
 
 .redirectBtnMini:hover {
-  opacity: 1;
-  transform: scale(1.2);
+  background: white;
+  color: black;
+  transform: scale(1.1) rotate(5deg);
 }
 
 .navLinkCenter {
@@ -497,16 +602,23 @@
   color: inherit;
 }
 
-:global(.light-theme) .gmailBg { color: white; }
-:global(.light-theme) .focusCard { color: white; }
-:global(.light-theme) .linkedinBg { color: white; }
-:global(.light-theme) .instaBg { color: white; }
+:global(.light-theme) .gmailBg { color: white !important; }
+:global(.light-theme) .focusCard,
+:global(.light-theme) .focusCard h2,
+:global(.light-theme) .focusCard p,
+:global(.light-theme) .focusCard span { 
+  color: white !important; 
+}
+:global(.light-theme) .linkedinBg { color: white !important; }
+:global(.light-theme) .instaBg { color: white !important; }
 
 .gmailLabel {
   position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
+  top: 1.25rem;
+  left: 1.25rem;
   font-size: 0.65rem;
+  font-family: var(--font-italic);
+  font-style: italic;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.7);
   background: rgba(255, 255, 255, 0.1);
@@ -517,8 +629,8 @@
 }
 
 :global(.light-theme) .gmailLabel {
-  color: rgba(0, 0, 0, 0.6);
-  background: rgba(0, 0, 0, 0.06);
+  color: #ffffff !important;
+  background: rgba(0, 0, 0, 0.4);
 }
 
 /* Apple Music Custom Specs */
@@ -563,7 +675,7 @@
 /* ── Responsive Breakpoints ── */
 @media (max-width: 1024px) {
   .bentoSection {
-    padding: 6rem 2rem;
+    padding: 6rem 8%;
   }
   .card {
     border-radius: 10px;
@@ -576,7 +688,7 @@
 
 @media (max-width: 768px) {
   .bentoSection {
-    padding: 4rem 1rem;
+    padding: 4rem 5% !important;
   }
   .title {
     font-size: clamp(2rem, 6vw, 3rem);
