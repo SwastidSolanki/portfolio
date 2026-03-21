@@ -136,14 +136,146 @@ html.lenis, html.lenis body {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,301,701,300,501,401,901,400,401,301,501,701,901&display=swap');
+
+:root {
+  --bg-primary: #0a0a0c;
+  --bg-secondary: #131417;
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  
+  --accent-1: #06b6d4;
+  --accent-2: #8b5cf6;
+  --accent-grad: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  
+  --card-bg: #131417;
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-text: #ffffff;
+  --card-text-dim: #a1a1aa;
+  
+  --font-display: 'Satoshi', sans-serif;
+  --font-body: 'Satoshi', sans-serif;
+  --font-italic: 'Satoshi-Italic', 'Satoshi', sans-serif;
+}
+
+.light-theme {
+  --bg-primary: #f2f2f5;
+  --bg-secondary: #e5e5ea;
+  --text-primary: #1c1c1e;
+  --text-secondary: #3a3a3c;
+  
+  --accent-1: #007aff;
+  --accent-2: #5856d6;
+
+  --card-bg: #ffffff;
+  --card-border: #000000;
+  --card-text: #1c1c1e;
+  --card-text-dim: #3a3a3c;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  background: radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.15) 0%, var(--bg-primary) 50%), var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+.light-theme body {
+  background: radial-gradient(circle at 50% 50%, #f2f2f7 0%, #d1d1d6 100%), #e5e5ea;
+}
+
+i, em, .italic {
+  font-family: var(--font-italic);
+  font-style: italic;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+.text-gradient {
+  background: var(--accent-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-panel {
+  background: rgba(19, 20, 23, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.scrollTopBtn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 2px solid var(--card-border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .scrollTopBtn.visible {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
-}
-
-@media (min-width: 769px) {
-  .scrollTopBtn {
-    display: none !important;
-  }
 }

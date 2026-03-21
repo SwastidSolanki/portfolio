@@ -75,7 +75,7 @@
 @media (max-width: 768px) {
   .about {
     flex-direction: column;
-    padding: 4rem 1.5rem;
+    padding: 8rem 1.5rem 4rem 1.5rem;
     min-height: auto;
   }
   .left {
@@ -106,7 +106,7 @@
 
 @media (max-width: 480px) {
   .about {
-    padding: 3rem 1rem;
+    padding: 6rem 1rem 3rem 1rem;
   }
   .left h2 {
     font-size: 2.5rem;

@@ -10,13 +10,16 @@ const About: React.FC = () => {
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
-      // Pinning the about section left side while scrolling the right side
-      ScrollTrigger.create({
-        trigger: container.current,
-        start: "top top",
-        end: "+=50%",
-        pin: ".about-left",
-        pinSpacing: false
+      // Pinning the about section left side while scrolling the right side - Desktop Only
+      let mm = gsap.matchMedia();
+      mm.add("(min-width: 769px)", () => {
+        ScrollTrigger.create({
+          trigger: container.current,
+          start: "top top",
+          end: "+=50%",
+          pin: ".about-left",
+          pinSpacing: false
+        });
       });
 
       // Staggered text reveal for about paragraph
