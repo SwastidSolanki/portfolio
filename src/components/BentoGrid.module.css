@@ -406,7 +406,9 @@
 /* Project Cards incorporated */
 .projectCard {
   background-size: cover;
-  background-position: top center;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-color: var(--card-bg);
   padding: 0;
 }
 .projectOverlay {
@@ -424,14 +426,14 @@
 }
 
 :global(.light-theme) .projectOverlay {
-  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 40%, transparent 100%) !important;
+  background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 40%, transparent 100%) !important;
 }
 
 :global(.light-theme) .projectOverlay *,
 :global(.light-theme) .projectOverlay h3,
 :global(.light-theme) .projectOverlay p {
   color: #fff !important;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
 }
 
 .redirectBtnProject {
@@ -919,20 +921,29 @@
 }
 
 :global(.light-theme) .seeMoreBtn {
-  background: rgba(0, 0, 0, 0.02);
-  border: 2px solid rgba(0, 0, 0, 1);
-  color: black;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border: 1px solid #000000;
+  color: #000000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 :global(.light-theme) .seeMoreText {
-  background: #000;
-  -webkit-text-fill-color: initial;
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  -webkit-text-fill-color: #000000;
+  color: #000000;
 }
 
 :global(.light-theme) .seeMoreBtn:hover {
-  background: rgba(0, 0, 0, 0.05);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  background: #000000;
+  color: #ffffff;
+  border-color: #000000;
+}
+
+:global(.light-theme) .seeMoreBtn:hover .seeMoreText {
+  -webkit-text-fill-color: #ffffff;
+  color: #ffffff;
 }
 
 @media (max-width: 768px) {

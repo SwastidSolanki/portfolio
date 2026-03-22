@@ -387,7 +387,7 @@ const BentoGrid: React.FC = () => {
             rel="noopener noreferrer" 
             className={styles.seeMoreBtn}
           >
-            <span className={styles.seeMoreText}>See more projects on my GitHub</span>
+            <span className={styles.seeMoreText}>Checkout more of my projects on GitHub</span>
             <Github size={20} />
           </a>
         </div>
