@@ -406,9 +406,7 @@
 /* Project Cards incorporated */
 .projectCard {
   background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-color: var(--card-bg);
+  background-position: top center;
   padding: 0;
 }
 .projectOverlay {
@@ -425,15 +423,17 @@
   text-shadow: 0 2px 8px rgba(0,0,0,0.8);
 }
 
-:global(.light-theme) .projectOverlay {
-  background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 40%, transparent 100%) !important;
+:global(.light-theme) .projectCard {
+  background-color: #131417 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
+:global(.light-theme) .projectOverlay,
 :global(.light-theme) .projectOverlay *,
 :global(.light-theme) .projectOverlay h3,
 :global(.light-theme) .projectOverlay p {
   color: #fff !important;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
 }
 
 .redirectBtnProject {
