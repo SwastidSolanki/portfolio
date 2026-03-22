@@ -870,3 +870,85 @@
   cursor: default !important;
 }
 
+/* ── GitHub CTA Footer ── */
+.footer {
+  margin-top: 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.seeMoreBtn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 1.2rem 2.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 100px;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.seeMoreText {
+  background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.7) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.seeMoreBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.seeMoreBtn:hover .seeMoreText {
+  background: linear-gradient(135deg, #fff 0%, #fff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:global(.light-theme) .seeMoreBtn {
+  background: rgba(0, 0, 0, 0.02);
+  border: 2px solid rgba(0, 0, 0, 1);
+  color: black;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+:global(.light-theme) .seeMoreText {
+  background: #000;
+  -webkit-text-fill-color: initial;
+}
+
+:global(.light-theme) .seeMoreBtn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+  .footer {
+    margin-top: 4rem;
+  }
+  
+  .seeMoreBtn {
+    padding: 1rem 1.8rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    margin-top: 3rem;
+  }
+}
+

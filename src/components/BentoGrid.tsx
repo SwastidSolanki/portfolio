@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { GitHubCalendar } from 'react-github-calendar';
-import { Music, Mail, GitBranch, Linkedin, Instagram, Headphones, FileText, Download } from 'lucide-react';
+import { Music, Mail, GitBranch, Linkedin, Instagram, Headphones, FileText, Download, Github } from 'lucide-react';
 import { Responsive as ResponsiveGridLayout } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
@@ -379,6 +379,18 @@ const BentoGrid: React.FC = () => {
           <p className={styles.subtitle}>Drag, drop, and resize anywhere. A glimpse into my tools, projects, and workflow.</p>
         </div>
         {renderContent()}
+        
+        <div className={styles.footer}>
+          <a 
+            href="https://github.com/SwastidSolanki" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className={styles.seeMoreBtn}
+          >
+            <span className={styles.seeMoreText}>See more projects on my GitHub</span>
+            <Github size={20} />
+          </a>
+        </div>
       </div>
     </section>
   );
