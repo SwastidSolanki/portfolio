@@ -34,7 +34,6 @@ const tools = [
   { name: 'Photoshop', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg' },
   { name: 'Illustrator', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-plain.svg' },
   { name: 'GSAP', icon: 'https://cdn.simpleicons.org/greensock/88CE02' },
-  { name: 'Three.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/threejs/threejs-original.svg', invertInDark: true },
 ];
 
 const TechStack: React.FC = () => {
