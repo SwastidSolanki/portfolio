@@ -1,60 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { GitHubCalendar } from 'react-github-calendar';
-import { Music, Mail, GitBranch, Linkedin, Instagram, Headphones, FileText, Download, Github } from 'lucide-react';
+import { Music, Mail, GitBranch, Linkedin, Instagram, Headphones, FileText, Download, Github, Loader2 } from 'lucide-react';
 import { Responsive as ResponsiveGridLayout } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 import styles from './BentoGrid.module.css';
 import ResumePDF from '../assets/Swastidresume.pdf';
 
+interface GithubRepo {
+  id: number;
+  name: string;
+  description: string;
+  homepage: string;
+  html_url: string;
+}
+
 const BentoGrid: React.FC = () => {
-  const layouts = {
-    lg: [
-      { i: 'focus', x: 0, y: 0, w: 3, h: 2 },
-      { i: 'spotify', x: 3, y: 0, w: 3, h: 2 },
-      { i: 'gmail', x: 6, y: 0, w: 2, h: 2 },
-      { i: 'insta', x: 8, y: 0, w: 2, h: 2 },
-      
-      { i: 'services', x: 0, y: 2, w: 6, h: 2 },
-      { i: 'linkedin', x: 6, y: 2, w: 2, h: 2 },
-      { i: 'resume', x: 8, y: 2, w: 2, h: 2 },
-
-      { i: 'nft', x: 0, y: 4, w: 6, h: 6 },
-      { i: 'github', x: 6, y: 4, w: 4, h: 2 },
-      { i: 'proj1', x: 6, y: 6, w: 4, h: 4 },
-      
-      { i: 'simon', x: 0, y: 10, w: 6, h: 4 },
-      { i: 'proj2', x: 6, y: 10, w: 4, h: 4 },
-      
-      { i: 'proj3', x: 0, y: 14, w: 6, h: 4 },
-      { i: 'proj4', x: 6, y: 14, w: 4, h: 4 }
-    ],
-    md: [
-      { i: 'focus', x: 0, y: 0, w: 3, h: 2 },
-      { i: 'spotify', x: 3, y: 0, w: 3, h: 2 },
-      { i: 'gmail', x: 6, y: 0, w: 2, h: 2 },
-      { i: 'insta', x: 8, y: 0, w: 2, h: 2 },
-      
-      { i: 'services', x: 0, y: 2, w: 6, h: 2 },
-      { i: 'linkedin', x: 6, y: 2, w: 2, h: 2 },
-      { i: 'resume', x: 8, y: 2, w: 2, h: 2 },
-
-      { i: 'nft', x: 0, y: 4, w: 6, h: 6 },
-      { i: 'github', x: 6, y: 4, w: 4, h: 2 },
-      { i: 'proj1', x: 6, y: 6, w: 4, h: 4 },
-      
-      { i: 'simon', x: 0, y: 10, w: 6, h: 4 },
-      { i: 'proj2', x: 6, y: 10, w: 4, h: 4 },
-      
-      { i: 'proj3', x: 0, y: 14, w: 6, h: 4 },
-      { i: 'proj4', x: 6, y: 14, w: 4, h: 4 }
-    ]
-  };
-
   const containerRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(1200);
   const [isDark, setIsDark] = useState(true);
   const [isTouch, setIsTouch] = useState(false);
+  const [repos, setRepos] = useState<GithubRepo[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -89,6 +56,30 @@ const BentoGrid: React.FC = () => {
     });
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
+    // Fetch dynamic project repositories
+    const fetchRepos = async () => {
+      try {
+        const res = await fetch('https://api.github.com/users/SwastidSolanki/repos?sort=pushed&per_page=100');
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          // Keep only repos containing a valid homepage deployed link (exclude portfolio itself)
+          const validRepos = data.filter((r: any) => 
+            r.homepage && 
+            r.homepage.startsWith('http') &&
+            !r.name.toLowerCase().includes('portfolio') &&
+            !r.name.toLowerCase().includes('solanki')
+          );
+          setRepos(validRepos);
+        }
+      } catch (err) {
+        console.error("Error fetching github repos", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchRepos();
+
     return () => {
       window.removeEventListener('resize', updateState);
       themeObserver.disconnect();
@@ -109,6 +100,36 @@ const BentoGrid: React.FC = () => {
     document.body.removeChild(link);
   };
 
+  const baseLayoutsLgMd = [
+    { i: 'focus', x: 0, y: 0, w: 3, h: 2 },
+    { i: 'spotify', x: 3, y: 0, w: 3, h: 2 },
+    { i: 'gmail', x: 6, y: 0, w: 2, h: 2 },
+    { i: 'insta', x: 8, y: 0, w: 2, h: 2 },
+    { i: 'services', x: 0, y: 2, w: 6, h: 2 },
+    { i: 'linkedin', x: 6, y: 2, w: 2, h: 2 },
+    { i: 'resume', x: 8, y: 2, w: 2, h: 2 },
+    { i: 'github', x: 6, y: 4, w: 4, h: 2 }
+  ];
+
+  // Dynamic Algorithmic layout builder matching visual ratios
+  const dynamicLayouts = repos.map((repo, i) => {
+    const id = `repo-${repo.id}`;
+    if (i === 0) return { i: id, x: 0, y: 4, w: 6, h: 6 };
+    if (i === 1) return { i: id, x: 6, y: 6, w: 4, h: 4 };
+    
+    // Group remaining projects into pairs matching 3:2 column scale
+    const p = Math.floor((i - 2) / 2);
+    const yCoord = 10 + p * 4;
+    return i % 2 === 0 
+      ? { i: id, x: 0, y: yCoord, w: 6, h: 4 }
+      : { i: id, x: 6, y: yCoord, w: 4, h: 4 };
+  });
+
+  const layouts = {
+    lg: [...baseLayoutsLgMd, ...dynamicLayouts],
+    md: [...baseLayoutsLgMd, ...dynamicLayouts],
+  };
+
   const gridProps: any = {
     className: "layout",
     layouts,
@@ -127,250 +148,190 @@ const BentoGrid: React.FC = () => {
   };
 
   const renderContent = () => {
-    const cards = [
+    const baseCards = [
       {
         key: 'focus',
         content: (
-          <div className={`${styles.card} ${styles.focusCard}`}>
-            <div className={styles.focusHeader}>
-              <GitBranch size={20} className={styles.focusIcon} />
-              <span>Current Focus</span>
-            </div>
-            <h2 className={styles.focusTitle}>AWS<br/>Architecture</h2>
-            <p className={styles.focusSub}>Data Engineering</p>
-          </div>
-        )
-      },
-      {
-        key: 'spotify',
-        content: (
-          <div className={`${styles.card} ${styles.spotifyCard}`}>
-            <AppleMusicPlayer />
-          </div>
-        )
-      },
-      {
-        key: 'gmail',
-        content: (
-          <div 
-            className={`${styles.card} ${styles.socialMiniCard} ${styles.gmailBg}`}
-            onClick={() => isTouch && (window.location.href = 'mailto:swastid03@gmail.com')}
-          >
-             {!isTouch && <a href="mailto:swastid03@gmail.com" className={styles.redirectBtnMini}>↗</a>}
-             <div className={styles.navLinkCenter}>
-               <Mail size={48} className={styles.giantIconImage} />
+           <div className={`${styles.card} ${styles.focusCard}`}>
+             <div className={styles.focusHeader}>
+               <GitBranch size={20} className={styles.focusIcon} />
+               <span>Current Focus</span>
              </div>
-             <span className={styles.gmailLabel}>swastid03@gmail.com</span>
-          </div>
-        )
-      },
-      {
-        key: 'insta',
-        content: (
-          <div 
-            className={`${styles.card} ${styles.socialMiniCard} ${styles.instaBg}`}
-            onClick={() => isTouch && window.open('https://instagram.com/swastidsolankii', '_blank')}
-          >
-             {!isTouch && <a href="https://instagram.com/swastidsolankii" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnMini}>↗</a>}
-             <div className={styles.navLinkCenter}>
-               <Instagram size={80} className={styles.giantIcon} />
-             </div>
-          </div>
-        )
-      },
-      {
-        key: 'services',
-        content: (
-          <div className={`${styles.card} ${styles.servicesCard}`}>
-            <h3 className={styles.servicesTitle}>Services Offered / What I do</h3>
-            <div className={styles.servicesSplit}>
-              <div className={styles.serviceCol}>
-                 <div className={styles.serviceIcons}>
-                   <img src="https://cdn.simpleicons.org/nextdotjs/white" alt="Next" className={styles.serviceIconNext} />
-                   <img src="https://cdn.simpleicons.org/react/61DAFB" alt="React" className={styles.serviceIcon} />
-                 </div>
-                 <p className={styles.serviceLabel}>Product Engineering</p>
-               </div>
-               <div className={styles.serviceDivider}></div>
-               <div className={styles.serviceCol}>
-                 <div className={styles.serviceIcons}>
-                   <img src="https://cdn.simpleicons.org/nodedotjs/339933" alt="Node" className={styles.serviceIcon} />
-                   <img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL" className={styles.serviceIcon} />
-                 </div>
-                <p className={styles.serviceLabel}>Full Stack Development</p>
+             <h2 className={styles.focusTitle}>AWS<br/>Architecture</h2>
+             <p className={styles.focusSub}>Data Engineering</p>
+           </div>
+         )
+       },
+       {
+         key: 'spotify',
+         content: (
+           <div className={`${styles.card} ${styles.spotifyCard}`}>
+             <AppleMusicPlayer />
+           </div>
+         )
+       },
+       {
+         key: 'gmail',
+         content: (
+           <div 
+             className={`${styles.card} ${styles.socialMiniCard} ${styles.gmailBg}`}
+             onClick={() => isTouch && (window.location.href = 'mailto:swastid03@gmail.com')}
+           >
+              {!isTouch && <a href="mailto:swastid03@gmail.com" className={styles.redirectBtnMini}>↗</a>}
+              <div className={styles.navLinkCenter}>
+                <Mail size={48} className={styles.giantIconImage} />
               </div>
-            </div>
-          </div>
-        )
-      },
-      {
-        key: 'linkedin',
-        content: (
-          <div 
-            className={`${styles.card} ${styles.socialMiniCard} ${styles.linkedinBg}`}
-            onClick={() => isTouch && window.open('https://www.linkedin.com/in/swastidsolanki/', '_blank')}
-          >
-             {!isTouch && <a href="https://www.linkedin.com/in/swastidsolanki/" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnMini}>↗</a>}
-             <div className={styles.navLinkCenter}>
-               <Linkedin size={80} className={styles.giantIcon} />
-             </div>
-          </div>
-        )
-      },
-      {
-        key: 'github',
-        content: (
-          <div className={`${styles.card}`}>
-            <h3>GitHub Activity</h3>
-            <div className={styles.calendarWrapper}>
-              <GitHubCalendar 
-                username="SwastidSolanki" 
-                colorScheme={isDark ? "dark" : "light"} 
-                blockSize={12} 
-                blockMargin={5} 
-                fontSize={12}
-                transformData={(contributions) => {
-                  const today = new Date();
-                  const past = new Date();
-                  past.setMonth(today.getMonth() - 3);
-                  return contributions.filter((act) => new Date(act.date) >= past);
-                }}
-              />
-            </div>
-          </div>
-        )
-      },
-      {
-        key: 'nft',
-        content: (
-          <div 
-            className={`${styles.card} ${styles.projectCard}`} 
-            style={{backgroundImage: 'url(https://api.microlink.io/?url=https://nft-marketplacemp.vercel.app&screenshot=true&meta=false&embed=screenshot.url)'}}
-            onClick={() => isTouch && window.open('https://nft-marketplacemp.vercel.app', '_blank')}
-          >
-             {!isTouch && <a href="https://nft-marketplacemp.vercel.app" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnProject}>↗</a>}
-             <div className={styles.projectOverlay}>
-               <div className={styles.projectMeta}>
-                 <h3 className={styles.giantProjectTitle}>NFT Marketplace</h3>
-                 <p>Web3 & Blockchain Full Scale Application</p>
+              <span className={styles.gmailLabel}>swastid03@gmail.com</span>
+           </div>
+         )
+       },
+       {
+         key: 'insta',
+         content: (
+           <div 
+             className={`${styles.card} ${styles.socialMiniCard} ${styles.instaBg}`}
+             onClick={() => isTouch && window.open('https://instagram.com/swastidsolankii', '_blank')}
+           >
+              {!isTouch && <a href="https://instagram.com/swastidsolankii" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnMini}>↗</a>}
+              <div className={styles.navLinkCenter}>
+                <Instagram size={80} className={styles.giantIcon} />
+              </div>
+           </div>
+         )
+       },
+       {
+         key: 'services',
+         content: (
+           <div className={`${styles.card} ${styles.servicesCard}`}>
+             <h3 className={styles.servicesTitle}>Services Offered / What I do</h3>
+             <div className={styles.servicesSplit}>
+               <div className={styles.serviceCol}>
+                  <div className={styles.serviceIcons}>
+                    <img src="https://cdn.simpleicons.org/nextdotjs/white" alt="Next" className={styles.serviceIconNext} />
+                    <img src="https://cdn.simpleicons.org/react/61DAFB" alt="React" className={styles.serviceIcon} />
+                  </div>
+                  <p className={styles.serviceLabel}>Product Engineering</p>
+                </div>
+                <div className={styles.serviceDivider}></div>
+                <div className={styles.serviceCol}>
+                  <div className={styles.serviceIcons}>
+                    <img src="https://cdn.simpleicons.org/nodedotjs/339933" alt="Node" className={styles.serviceIcon} />
+                    <img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL" className={styles.serviceIcon} />
+                  </div>
+                 <p className={styles.serviceLabel}>Full Stack Development</p>
                </div>
              </div>
-          </div>
-        )
-      },
-      {
-        key: 'simon',
-        content: (
-          <div 
-            className={`${styles.card} ${styles.projectCard}`} 
-            style={{backgroundImage: 'url(https://api.microlink.io/?url=https://thesimongame03.vercel.app/&screenshot=true&meta=false&embed=screenshot.url)'}}
-            onClick={() => isTouch && window.open('https://thesimongame03.vercel.app/', '_blank')}
-          >
-             {!isTouch && <a href="https://thesimongame03.vercel.app/" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnProject}>↗</a>}
-             <div className={styles.projectOverlay}>
-               <div className={styles.projectMeta}>
-                 <h3 className={styles.giantProjectTitle}>Simon Game</h3>
-                 <p>Interactive Web Game</p>
-               </div>
+           </div>
+         )
+       },
+       {
+         key: 'linkedin',
+         content: (
+           <div 
+             className={`${styles.card} ${styles.socialMiniCard} ${styles.linkedinBg}`}
+             onClick={() => isTouch && window.open('https://www.linkedin.com/in/swastidsolanki/', '_blank')}
+           >
+              {!isTouch && <a href="https://www.linkedin.com/in/swastidsolanki/" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnMini}>↗</a>}
+              <div className={styles.navLinkCenter}>
+                <Linkedin size={80} className={styles.giantIcon} />
+              </div>
+           </div>
+         )
+       },
+       {
+         key: 'github',
+         content: (
+           <div className={`${styles.card}`}>
+             <h3>GitHub Activity</h3>
+             <div className={styles.calendarWrapper}>
+               <GitHubCalendar 
+                 username="SwastidSolanki" 
+                 colorScheme={isDark ? "dark" : "light"} 
+                 blockSize={12} 
+                 blockMargin={5} 
+                 fontSize={12}
+                 transformData={(contributions) => {
+                   const today = new Date();
+                   const past = new Date();
+                   past.setMonth(today.getMonth() - 3);
+                   return contributions.filter((act) => new Date(act.date) >= past);
+                 }}
+               />
              </div>
-          </div>
-        )
-      },
-      {
-        key: 'proj1',
-        content: (
-          <div 
-             className={`${styles.card} ${styles.projectCard}`} 
-             style={{backgroundImage: 'url(https://api.microlink.io/?url=https://weblogslive.vercel.app/&screenshot=true&meta=false&embed=screenshot.url)'}}
-             onClick={() => isTouch && window.open('https://weblogslive.vercel.app/', '_blank')}
-          >
-             {!isTouch && <a href="https://weblogslive.vercel.app/" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnProject}>↗</a>}
-             <div className={styles.projectOverlay}>
-               <div className={styles.projectMeta}>
-                 <h3>Blog App</h3>
-                 <p>Full-Stack Application</p>
-               </div>
-             </div>
-          </div>
-        )
-      },
-      {
-        key: 'proj2',
-        content: (
-          <div 
-             className={`${styles.card} ${styles.projectCard}`} 
-             style={{backgroundImage: 'url(https://api.microlink.io/?url=https://frontend-quiz-app-teal.vercel.app&screenshot=true&meta=false&embed=screenshot.url)'}}
-             onClick={() => isTouch && window.open('https://frontend-quiz-app-teal.vercel.app', '_blank')}
-          >
-             {!isTouch && <a href="https://frontend-quiz-app-teal.vercel.app" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnProject}>↗</a>}
-             <div className={styles.projectOverlay}>
-               <div className={styles.projectMeta}>
-                 <h3>Frontend Quiz</h3>
-                 <p>Interactive UI / React</p>
-               </div>
-             </div>
-          </div>
-        )
-      },
-      {
-        key: 'proj3',
-        content: (
-          <div 
-             className={`${styles.card} ${styles.projectCard}`} 
-             style={{backgroundImage: 'url(https://api.microlink.io/?url=https://steam-intel.vercel.app/&screenshot=true&meta=false&embed=screenshot.url)'}}
-             onClick={() => isTouch && window.open('https://steam-intel.vercel.app/', '_blank')}
-          >
-             {!isTouch && <a href="https://steam-intel.vercel.app/" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnProject}>↗</a>}
-             <div className={styles.projectOverlay}>
-               <div className={styles.projectMeta}>
-                 <h3 className={styles.giantProjectTitle}>SteamIntel</h3>
-                 <p>Steam Analytics Platform</p>
-               </div>
-             </div>
-          </div>
-        )
-      },
-      {
-        key: 'proj4',
-        content: (
-          <div 
-             className={`${styles.card} ${styles.projectCard}`} 
-             style={{backgroundImage: 'url(https://api.microlink.io/?url=https://shield-cyber-intel.vercel.app/&screenshot=true&meta=false&embed=screenshot.url)'}}
-             onClick={() => isTouch && window.open('https://shield-cyber-intel.vercel.app/', '_blank')}
-          >
-             {!isTouch && <a href="https://shield-cyber-intel.vercel.app/" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnProject}>↗</a>}
-             <div className={styles.projectOverlay}>
-               <div className={styles.projectMeta}>
-                 <h3>Shield Cyber Intel</h3>
-                 <p>Cybersecurity Intelligence Platform</p>
-               </div>
-             </div>
-          </div>
-        )
-      },
-      {
-        key: 'resume',
-        content: (
-          <div 
-            className={`${styles.card} ${styles.socialMiniCard} ${styles.resumeBg}`}
-            onClick={isTouch ? handleDownload : undefined}
-          >
-             <button onClick={handleDownload} className={styles.resumeDownloadBtn} style={{ border: 'none', cursor: 'pointer' }} aria-label="Download Resume">
-               <Download size={20} />
-             </button>
-             <div className={styles.navLinkCenter}>
-               <FileText size={80} className={styles.giantIcon} />
-             </div>
-             <span className={styles.resumeLabel}>Resume</span>
-          </div>
-        )
-      }
+           </div>
+         )
+       },
+       {
+         key: 'resume',
+         content: (
+           <div 
+             className={`${styles.card} ${styles.socialMiniCard} ${styles.resumeBg}`}
+             onClick={isTouch ? handleDownload : undefined}
+           >
+              <button onClick={handleDownload} className={styles.resumeDownloadBtn} style={{ border: 'none', cursor: 'pointer' }} aria-label="Download Resume">
+                <Download size={20} />
+              </button>
+              <div className={styles.navLinkCenter}>
+                <FileText size={80} className={styles.giantIcon} />
+              </div>
+              <span className={styles.resumeLabel}>Resume</span>
+           </div>
+         )
+       }
     ];
+
+    const capitalize = (str: string) => str.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+
+    const repoCards = repos.map((repo, i) => {
+      // Scale titles natively for w:6 columns logic
+      const isGiant = i === 0 || i % 2 === 0;
+      const formattedName = capitalize(repo.name.replace(/-/g, ' '));
+
+      return {
+        key: `repo-${repo.id}`,
+        content: (
+          <div 
+             className={`${styles.card} ${styles.projectCard}`} 
+             style={{backgroundImage: `url(https://api.microlink.io/?url=${encodeURIComponent(repo.homepage)}&screenshot=true&meta=false&embed=screenshot.url)`}}
+             onClick={() => isTouch && window.open(repo.homepage, '_blank')}
+          >
+             {!isTouch && <a href={repo.homepage} target="_blank" rel="noopener noreferrer" className={styles.redirectBtnProject}>↗</a>}
+             <div className={styles.projectOverlay}>
+               <div className={styles.projectMeta}>
+                 {isGiant ? (
+                   <h3 className={styles.giantProjectTitle}>{formattedName}</h3>
+                 ) : (
+                   <h3>{formattedName}</h3>
+                 )}
+                 <p>{repo.description || 'Full-Stack Application'}</p>
+               </div>
+             </div>
+          </div>
+        )
+      };
+    });
+
+    const allCards = [...baseCards, ...repoCards];
+
+    if (isLoading) {
+      allCards.push({
+        key: 'loading',
+        content: (
+          <div className={styles.card} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: '12px' }}>
+            <style>{`@keyframes bentoSpin { 100% { transform: rotate(360deg); } }`}</style>
+            <Loader2 size={32} style={{ animation: 'bentoSpin 2s linear infinite' }} />
+            <p style={{ opacity: 0.7, fontSize: '0.9rem' }}>Fetching GitHub Projects...</p>
+          </div>
+        )
+      });
+      layouts.lg.push({ i: 'loading', x: 0, y: 4, w: 6, h: 6 });
+      layouts.md.push({ i: 'loading', x: 0, y: 4, w: 6, h: 6 });
+    }
 
     if (isMobile) {
       return (
         <div className={styles.mobileGrid}>
-          {cards.map(card => (
+          {allCards.map(card => (
             <div key={card.key} className={styles.mobileCardWrapper}>
               {card.content}
             </div>
@@ -381,7 +342,7 @@ const BentoGrid: React.FC = () => {
 
     return (
       <ResponsiveGridLayout {...gridProps}>
-        {cards.map(card => (
+        {allCards.map(card => (
           <div key={card.key}>
             {card.content}
           </div>
