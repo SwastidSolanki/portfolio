@@ -26,7 +26,8 @@ const BentoGrid: React.FC = () => {
       { i: 'simon', x: 0, y: 10, w: 6, h: 4 },
       { i: 'proj2', x: 6, y: 10, w: 4, h: 4 },
       
-      { i: 'proj3', x: 0, y: 14, w: 10, h: 4 }
+      { i: 'proj3', x: 0, y: 14, w: 6, h: 4 },
+      { i: 'proj4', x: 6, y: 14, w: 4, h: 4 }
     ],
     md: [
       { i: 'focus', x: 0, y: 0, w: 3, h: 2 },
@@ -45,7 +46,8 @@ const BentoGrid: React.FC = () => {
       { i: 'simon', x: 0, y: 10, w: 6, h: 4 },
       { i: 'proj2', x: 6, y: 10, w: 4, h: 4 },
       
-      { i: 'proj3', x: 0, y: 14, w: 10, h: 4 }
+      { i: 'proj3', x: 0, y: 14, w: 6, h: 4 },
+      { i: 'proj4', x: 6, y: 14, w: 4, h: 4 }
     ]
   };
 
@@ -315,13 +317,31 @@ const BentoGrid: React.FC = () => {
         content: (
           <div 
              className={`${styles.card} ${styles.projectCard}`} 
+             style={{backgroundImage: 'url(https://api.microlink.io/?url=https://steam-intel.vercel.app/&screenshot=true&meta=false&embed=screenshot.url)'}}
+             onClick={() => isTouch && window.open('https://steam-intel.vercel.app/', '_blank')}
+          >
+             {!isTouch && <a href="https://steam-intel.vercel.app/" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnProject}>↗</a>}
+             <div className={styles.projectOverlay}>
+               <div className={styles.projectMeta}>
+                 <h3 className={styles.giantProjectTitle}>SteamIntel</h3>
+                 <p>Steam Analytics Platform</p>
+               </div>
+             </div>
+          </div>
+        )
+      },
+      {
+        key: 'proj4',
+        content: (
+          <div 
+             className={`${styles.card} ${styles.projectCard}`} 
              style={{backgroundImage: 'url(https://api.microlink.io/?url=https://shield-cyber-intel.vercel.app/&screenshot=true&meta=false&embed=screenshot.url)'}}
              onClick={() => isTouch && window.open('https://shield-cyber-intel.vercel.app/', '_blank')}
           >
              {!isTouch && <a href="https://shield-cyber-intel.vercel.app/" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnProject}>↗</a>}
              <div className={styles.projectOverlay}>
                <div className={styles.projectMeta}>
-                 <h3 className={styles.giantProjectTitle}>Shield Cyber Intel</h3>
+                 <h3>Shield Cyber Intel</h3>
                  <p>Cybersecurity Intelligence Platform</p>
                </div>
              </div>
