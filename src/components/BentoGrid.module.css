@@ -850,19 +850,29 @@
 }
 /* ── Mobile Static Grid Styles ── */
 .mobileGrid {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
   width: 100%;
 }
 
 .mobileCardWrapper {
+  grid-column: span 2;
   width: 100%;
   position: relative;
   height: 250px;
 }
 
-.mobileCardWrapper .card {
+.mobileCardWrapperMini {
+  grid-column: span 1;
+  width: 100%;
+  position: relative;
+  aspect-ratio: 1 / 1;
+  height: auto;
+}
+
+.mobileCardWrapper .card,
+.mobileCardWrapperMini .card {
   position: relative !important;
   width: 100% !important;
   height: 100% !important;

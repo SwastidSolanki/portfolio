@@ -331,11 +331,14 @@ const BentoGrid: React.FC = () => {
     if (isMobile) {
       return (
         <div className={styles.mobileGrid}>
-          {allCards.map(card => (
-            <div key={card.key} className={styles.mobileCardWrapper}>
-              {card.content}
-            </div>
-          ))}
+          {allCards.map(card => {
+            const isMini = ['gmail', 'insta', 'linkedin', 'resume'].includes(card.key);
+            return (
+              <div key={card.key} className={isMini ? styles.mobileCardWrapperMini : styles.mobileCardWrapper}>
+                {card.content}
+              </div>
+            );
+          })}
         </div>
       );
     }
