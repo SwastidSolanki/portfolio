@@ -48,7 +48,7 @@ const Navbar: React.FC = () => {
           <li><a href="#about" className="hover-target">About</a></li>
           <li><a href="#ecosystem" className="hover-target">Ecosystem</a></li>
         </ul>
-        <button onClick={toggleTheme} className={styles.themeToggle} aria-label="Toggle Theme">
+        <button onClick={toggleTheme} className={styles.themeToggle} aria-label="Toggle Theme" style={{ display: 'none' }}>
           {isDark ? <Sun size={20} /> : <Moon size={20} />}
         </button>
       </div>
