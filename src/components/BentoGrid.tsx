@@ -200,6 +200,37 @@ const BentoGrid: React.FC = () => {
          )
        },
        {
+         key: 'linkedin',
+         content: (
+           <div 
+             className={`${styles.card} ${styles.socialMiniCard} ${styles.linkedinBg}`}
+             onClick={() => isTouch && window.open('https://www.linkedin.com/in/swastidsolanki/', '_blank')}
+           >
+              {!isTouch && <a href="https://www.linkedin.com/in/swastidsolanki/" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnMini}>↗</a>}
+              <div className={styles.navLinkCenter}>
+                <Linkedin size={80} className={styles.giantIcon} />
+              </div>
+           </div>
+         )
+       },
+       {
+         key: 'resume',
+         content: (
+           <div 
+             className={`${styles.card} ${styles.socialMiniCard} ${styles.resumeBg}`}
+             onClick={isTouch ? handleDownload : undefined}
+           >
+              <button onClick={handleDownload} className={styles.resumeDownloadBtn} style={{ border: 'none', cursor: 'pointer' }} aria-label="Download Resume">
+                <Download size={20} />
+              </button>
+              <div className={styles.navLinkCenter}>
+                <FileText size={80} className={styles.giantIcon} />
+              </div>
+              <span className={styles.resumeLabel}>Resume</span>
+           </div>
+         )
+       },
+       {
          key: 'services',
          content: (
            <div className={`${styles.card} ${styles.servicesCard}`}>
@@ -225,20 +256,6 @@ const BentoGrid: React.FC = () => {
          )
        },
        {
-         key: 'linkedin',
-         content: (
-           <div 
-             className={`${styles.card} ${styles.socialMiniCard} ${styles.linkedinBg}`}
-             onClick={() => isTouch && window.open('https://www.linkedin.com/in/swastidsolanki/', '_blank')}
-           >
-              {!isTouch && <a href="https://www.linkedin.com/in/swastidsolanki/" target="_blank" rel="noopener noreferrer" className={styles.redirectBtnMini}>↗</a>}
-              <div className={styles.navLinkCenter}>
-                <Linkedin size={80} className={styles.giantIcon} />
-              </div>
-           </div>
-         )
-       },
-       {
          key: 'github',
          content: (
            <div className={`${styles.card}`}>
@@ -258,23 +275,6 @@ const BentoGrid: React.FC = () => {
                  }}
                />
              </div>
-           </div>
-         )
-       },
-       {
-         key: 'resume',
-         content: (
-           <div 
-             className={`${styles.card} ${styles.socialMiniCard} ${styles.resumeBg}`}
-             onClick={isTouch ? handleDownload : undefined}
-           >
-              <button onClick={handleDownload} className={styles.resumeDownloadBtn} style={{ border: 'none', cursor: 'pointer' }} aria-label="Download Resume">
-                <Download size={20} />
-              </button>
-              <div className={styles.navLinkCenter}>
-                <FileText size={80} className={styles.giantIcon} />
-              </div>
-              <span className={styles.resumeLabel}>Resume</span>
            </div>
          )
        }
