@@ -286,13 +286,15 @@ const BentoGrid: React.FC = () => {
       // Scale titles natively for w:6 columns logic
       const isGiant = i === 0 || i % 2 === 0;
       const formattedName = capitalize(repo.name.replace(/-/g, ' '));
+      const colorSchemeParam = isDark ? 'dark' : 'light';
+      const imgUrl = `https://api.microlink.io/?url=${encodeURIComponent(repo.homepage)}&screenshot=true&meta=false&embed=screenshot.url&colorScheme=${colorSchemeParam}&viewport.width=1920&viewport.height=1080&viewport.isMobile=false`;
 
       return {
         key: `repo-${repo.id}`,
         content: (
           <div 
              className={`${styles.card} ${styles.projectCard}`} 
-             style={{backgroundImage: `url(https://api.microlink.io/?url=${encodeURIComponent(repo.homepage)}&screenshot=true&meta=false&embed=screenshot.url)`}}
+             style={{backgroundImage: `url(${imgUrl})`}}
              onClick={() => isTouch && window.open(repo.homepage, '_blank')}
           >
              {!isTouch && <a href={repo.homepage} target="_blank" rel="noopener noreferrer" className={styles.redirectBtnProject}>↗</a>}

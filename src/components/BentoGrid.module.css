@@ -407,6 +407,7 @@
 .projectCard {
   background-size: cover;
   background-position: top center;
+  background-repeat: no-repeat;
   padding: 0;
 }
 .projectOverlay {
@@ -424,16 +425,31 @@
 }
 
 :global(.light-theme) .projectCard {
-  background-color: #131417 !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
+  background-color: var(--card-bg) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+:global(.light-theme) .projectCard::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255, 255, 255, 0.25);
+  pointer-events: none;
+  z-index: 1;
+}
+
+:global(.light-theme) .projectOverlay {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 70%);
 }
 
 :global(.light-theme) .projectOverlay,
 :global(.light-theme) .projectOverlay *,
 :global(.light-theme) .projectOverlay h3,
 :global(.light-theme) .projectOverlay p {
-  color: #fff !important;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+  color: #000 !important;
+  text-shadow: none;
 }
 
 .redirectBtnProject {
