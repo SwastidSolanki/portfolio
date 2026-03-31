@@ -6,10 +6,10 @@ import * as THREE from 'three';
 const AbstractShape = () => {
   const meshRef = useRef<THREE.Mesh>(null);
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.elapsedTime * 0.15;
-      meshRef.current.rotation.y = state.clock.elapsedTime * 0.2;
+      meshRef.current.rotation.x += delta * 0.15;
+      meshRef.current.rotation.y += delta * 0.2;
     }
   });
 
@@ -34,7 +34,17 @@ const AbstractShape = () => {
 const ThreeBackground: React.FC = () => {
   return (
     <div style={{ position: 'absolute', top: '10vh', right: '0', width: '45vw', height: '80vh', zIndex: 0, pointerEvents: 'none' }}>
-      <Canvas camera={{ position: [0, 0, 8], fov: 45 }} style={{ pointerEvents: 'auto' }}>
+      <Canvas 
+        camera={{ position: [0, 0, 8], fov: 45 }} 
+        style={{ pointerEvents: 'auto' }}
+        gl={{ 
+          powerPreference: "high-performance",
+          antialias: true,
+          alpha: true,
+          preserveDrawingBuffer: true
+        }}
+        dpr={[1, 2]} // limit pixel ratio for performance
+      >
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 5]} intensity={1.5} color="#8b5cf6" />
         <directionalLight position={[-10, -10, -5]} intensity={1} color="#06b6d4" />
@@ -50,7 +60,15 @@ const ThreeBackground: React.FC = () => {
           maxPolarAngle={Math.PI / 2 + 0.5}
           minPolarAngle={Math.PI / 2 - 0.5}
         />
-        <ContactShadows position={[0, -2.5, 0]} opacity={0.6} scale={10} blur={2.5} far={4} color="#000000" />
+        <ContactShadows 
+          position={[0, -2.5, 0]} 
+          opacity={0.6} 
+          scale={10} 
+          blur={2.5} 
+          far={4} 
+          color="#000000"
+          resolution={256}
+        />
       </Canvas>
     </div>
   );
