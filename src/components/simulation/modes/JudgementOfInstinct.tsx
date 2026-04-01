@@ -56,7 +56,7 @@ interface Player {
 
 const PLAYER_COLORS = ['#6366f1', '#14b8a6', '#f59e0b', '#ec4899'];
 
-const JudgementOfInstinct: React.FC<TrialProps> = ({ playerCount, playerKeys, onComplete, onExit, isMuted }) => {
+const JudgementOfInstinct: React.FC<TrialProps> = ({ playerCount, playerKeys, onComplete, isMuted }) => {
   const [phase, setPhase] = useState<'START' | 'WAITING' | 'PROMPT' | 'ROUND_OVER' | 'GAMEOVER'>('START');
   const [round, setRound] = useState(1);
   const [prompt, setPrompt] = useState<{ text: string, valid: boolean } | null>(null);

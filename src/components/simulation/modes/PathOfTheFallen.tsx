@@ -4,6 +4,7 @@ export interface TrialProps {
   playerCount: number;
   playerKeys: Record<string, string>;
   onComplete: (score: string) => void;
+  onExit?: () => void;
   isMuted: boolean;
 }
 
@@ -183,7 +184,7 @@ const PathOfTheFallen: React.FC<TrialProps> = ({ playerCount, playerKeys, onComp
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const key = e.key.toLowerCase();
-      Object.entries(playerKeys).forEach(([pId, boundKey], idx) => {
+      Object.entries(playerKeys).forEach(([_pId, boundKey], idx) => {
         if (boundKey === key) jump(idx);
       });
     };

@@ -23,7 +23,6 @@ const HallOfTrials: React.FC<HallProps> = ({ onClose }) => {
   const [playerCount, setPlayerCount] = useState<number>(2);
   const [playerKeys, setPlayerKeys] = useState<Record<string, string>>({});
   const [isMuted, setIsMuted] = useState(false);
-  const [lastVictor, setLastVictor] = useState<string | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [resetKey, setResetKey] = useState(0);
 
@@ -47,7 +46,7 @@ const HallOfTrials: React.FC<HallProps> = ({ onClose }) => {
       });
       setIsFullscreen(true);
     } else {
-      document.exitFulHlscreen();
+      document.exitFullscreen();
       setIsFullscreen(false);
     }
   };
@@ -186,12 +185,12 @@ const HallOfTrials: React.FC<HallProps> = ({ onClose }) => {
           />
         )}
 
-        {currentArena === 'FALLEN' && <PathOfTheFallen key={resetKey} playerCount={playerCount} playerKeys={playerKeys} onExit={() => setCurrentArena('MENU')} isMuted={isMuted} onComplete={(v) => { setLastVictor(v); setCurrentArena('MENU'); }} />}
-        {currentArena === 'INSTINCT' && <JudgementOfInstinct key={resetKey} playerCount={playerCount} playerKeys={playerKeys} onExit={() => setCurrentArena('MENU')} isMuted={isMuted} onComplete={(v) => { setLastVictor(v); setCurrentArena('MENU'); }} />}
-        {currentArena === 'FATE' && <BurdenOfFate key={resetKey} playerCount={playerCount} playerKeys={playerKeys} onExit={() => setCurrentArena('MENU')} isMuted={isMuted} onComplete={(v) => { setLastVictor(v); setCurrentArena('MENU'); }} />}
-        {currentArena === 'MEMORY' && <VeilOfMemory key={resetKey} playerCount={playerCount} playerKeys={playerKeys} onExit={() => setCurrentArena('MENU')} isMuted={isMuted} onComplete={(v) => { setLastVictor(v); setCurrentArena('MENU'); }} />}
-        {currentArena === 'ORDER' && <EchoesOfOrder key={resetKey} playerCount={playerCount} playerKeys={playerKeys} onExit={() => setCurrentArena('MENU')} isMuted={isMuted} onComplete={(v) => { setLastVictor(v); setCurrentArena('MENU'); }} />}
-        {currentArena === 'PULSE' && <PulseOfArena key={resetKey} playerCount={playerCount} playerKeys={playerKeys} onExit={() => setCurrentArena('MENU')} isMuted={isMuted} onComplete={(v) => { setLastVictor(v); setCurrentArena('MENU'); }} />}
+        {currentArena === 'FALLEN' && <PathOfTheFallen key={resetKey} playerCount={playerCount} playerKeys={playerKeys} isMuted={isMuted} onComplete={() => { setCurrentArena('MENU'); }} />}
+        {currentArena === 'INSTINCT' && <JudgementOfInstinct key={resetKey} playerCount={playerCount} playerKeys={playerKeys} isMuted={isMuted} onComplete={() => { setCurrentArena('MENU'); }} />}
+        {currentArena === 'FATE' && <BurdenOfFate key={resetKey} playerCount={playerCount} playerKeys={playerKeys} isMuted={isMuted} onComplete={() => { setCurrentArena('MENU'); }} />}
+        {currentArena === 'MEMORY' && <VeilOfMemory key={resetKey} playerCount={playerCount} playerKeys={playerKeys} isMuted={isMuted} onComplete={() => { setCurrentArena('MENU'); }} />}
+        {currentArena === 'ORDER' && <EchoesOfOrder key={resetKey} playerCount={playerCount} playerKeys={playerKeys} isMuted={isMuted} onComplete={() => { setCurrentArena('MENU'); }} />}
+        {currentArena === 'PULSE' && <PulseOfArena key={resetKey} playerCount={playerCount} playerKeys={playerKeys} isMuted={isMuted} onComplete={() => { setCurrentArena('MENU'); }} />}
       </div>
     </div>
   );

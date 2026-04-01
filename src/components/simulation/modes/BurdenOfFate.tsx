@@ -11,7 +11,7 @@ interface Player {
 
 const PLAYER_COLORS = ['#6366f1', '#14b8a6', '#f59e0b', '#ec4899'];
 
-const BurdenOfFate: React.FC<TrialProps> = ({ playerCount, playerKeys, onComplete, onExit, isMuted }) => {
+const BurdenOfFate: React.FC<TrialProps> = ({ playerCount, playerKeys, onComplete, isMuted }) => {
   const [phase, setPhase] = useState<'START' | 'PLAYING' | 'EXPLODED' | 'GAMEOVER'>('START');
   const [activePlayerId, setActivePlayerId] = useState<string | null>(null);
   const [timeLeftStr, setTimeLeftStr] = useState('??:??');

@@ -15,7 +15,7 @@ interface PlayerState {
   status: 'PREVIEW' | 'INPUT' | 'SUCCESS' | 'FAILED';
 }
 
-const VeilOfMemory: React.FC<TrialProps> = ({ onComplete }) => {
+const VeilOfMemory: React.FC<TrialProps> = ({ playerCount: _pc, playerKeys: _pk, onComplete, isMuted: _im }) => {
   const [level, setLevel] = useState(1);
   const gridSize = 8;
   const [player, setPlayer] = useState<PlayerState>({

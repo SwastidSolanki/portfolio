@@ -19,7 +19,9 @@ function App() {
         <TechStack />
       </Layout>
       <SecretSystem />
-      {/* Secret Quick-Access Trigger */}
+      <footer style={{ width: '100%', padding: '2rem', textAlign: 'center', color: '#475569', fontSize: '0.75rem', letterSpacing: '0.4em', textTransform: 'uppercase', position: 'relative', zIndex: 1, borderTop: '1px solid rgba(255,255,255,0.02)' }}>
+        Discover the Hidden Chamber Modules. Secure the Arena Sequence.
+      </footer>
       <div 
         onClick={() => window.dispatchEvent(new CustomEvent('triggerSecretDirect'))}
         style={{

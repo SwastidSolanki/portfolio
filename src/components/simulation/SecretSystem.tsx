@@ -6,25 +6,45 @@ import styles from './SecretSystem.module.css';
 
 type SystemState = 'IDLE' | 'CINEMATIC' | 'TERMINAL' | 'OVERLAY';
 
-const playSubtlePing = () => {
+const playOminousAtmosphere = () => {
   try {
     const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
-    const oscillator = audioCtx.createOscillator();
-    const gainNode = audioCtx.createGain();
+    const now = audioCtx.currentTime;
     
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(880, audioCtx.currentTime); // A5
-    oscillator.frequency.exponentialRampToValueAtTime(440, audioCtx.currentTime + 0.5);
+    // Low Drone
+    const lowOsc = audioCtx.createOscillator();
+    const lowGain = audioCtx.createGain();
+    lowOsc.type = 'sawtooth';
+    lowOsc.frequency.setValueAtTime(55, now); // A1
+    lowOsc.frequency.exponentialRampToValueAtTime(27.5, now + 3); // A0
+    lowGain.gain.setValueAtTime(0, now);
+    lowGain.gain.linearRampToValueAtTime(0.15, now + 0.5);
+    lowGain.gain.exponentialRampToValueAtTime(0.001, now + 4);
     
-    gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-    gainNode.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime + 0.05);
-    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.5);
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-    
-    oscillator.start();
-    oscillator.stop(audioCtx.currentTime + 1.5);
+    // High Dissonance (Scream)
+    const highOsc = audioCtx.createOscillator();
+    const highGain = audioCtx.createGain();
+    highOsc.type = 'square';
+    highOsc.frequency.setValueAtTime(880, now); // A5
+    highOsc.frequency.linearRampToValueAtTime(1320, now + 0.1); // Tension
+    highGain.gain.setValueAtTime(0, now);
+    highGain.gain.linearRampToValueAtTime(0.05, now + 0.05);
+    highGain.gain.exponentialRampToValueAtTime(0.001, now + 2);
+
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(1000, now);
+    filter.frequency.exponentialRampToValueAtTime(100, now + 3);
+
+    lowOsc.connect(filter);
+    highOsc.connect(filter);
+    filter.connect(lowGain);
+    filter.connect(highGain);
+    lowGain.connect(audioCtx.destination);
+    highGain.connect(audioCtx.destination);
+
+    lowOsc.start(); lowOsc.stop(now + 4);
+    highOsc.start(); highOsc.stop(now + 2);
   } catch (e) {
     console.warn("Audio Context failed", e);
   }
@@ -39,7 +59,7 @@ const SecretSystem: React.FC = () => {
   useEffect(() => {
     const handleTrigger = () => {
       setCurrentState('CINEMATIC');
-      playSubtlePing();
+      playOminousAtmosphere();
     };
 
     const handleKeydown = (e: KeyboardEvent) => {

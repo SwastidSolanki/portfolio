@@ -1,13 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './PulseOfArena.module.css';
-
-interface Props {
-  playerCount: number;
-  playerKeys: Record<string, string>;
-  isMuted: boolean;
-  onExit: () => void;
-  onComplete: (victor: string) => void;
-}
+import type { TrialProps } from './PathOfTheFallen';
 
 const BOARD_WIDTH = 450;
 const BOARD_HEIGHT = 700;
@@ -17,7 +10,7 @@ const GOAL_WIDTH = 180;
 const MAX_SPEED = 20;
 const FRICTION = 0.995;
 
-const PulseOfArena: React.FC<Props> = ({ onComplete }) => {
+const PulseOfArena: React.FC<TrialProps> = ({ playerCount: _pc, playerKeys: _pk, onComplete, isMuted: _im }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [scores, setScores] = useState({ p1: 0, p2: 0 });
   const [isGameOver, setIsGameOver] = useState(false);
@@ -99,7 +92,7 @@ const PulseOfArena: React.FC<Props> = ({ onComplete }) => {
       
       if (st.puck.y <= PUCK_RADIUS) {
         if (inGoalX) {
-          setScores(s => {
+          setScores((s: { p1: number; p2: number }) => {
             const next = { ...s, p1: s.p1 + 1 };
             if (next.p1 >= 7) { setIsGameOver(true); setVictor('ALPHA'); }
             return next;
@@ -111,7 +104,7 @@ const PulseOfArena: React.FC<Props> = ({ onComplete }) => {
         }
       } else if (st.puck.y >= BOARD_HEIGHT - PUCK_RADIUS) {
         if (inGoalX) {
-          setScores(s => {
+          setScores((s: { p1: number; p2: number }) => {
             const next = { ...s, p2: s.p2 + 1 };
             if (next.p2 >= 7) { setIsGameOver(true); setVictor('OMEGA'); }
             return next;

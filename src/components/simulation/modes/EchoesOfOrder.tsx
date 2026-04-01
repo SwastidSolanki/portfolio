@@ -12,7 +12,7 @@ interface PlayerState {
   status: 'PREVIEW' | 'INPUT' | 'SUCCESS' | 'FAILED';
 }
 
-const EchoesOfOrder: React.FC<TrialProps> = ({ onComplete }) => {
+const EchoesOfOrder: React.FC<TrialProps> = ({ playerCount: _pc, playerKeys: _pk, onComplete, isMuted: _im }) => {
   const [level, setLevel] = useState(1);
   const [player, setPlayer] = useState<PlayerState>({
     id: 'p1', targetStack: [], userStack: [], score: 0, status: 'PREVIEW'
@@ -170,8 +170,8 @@ const EchoesOfOrder: React.FC<TrialProps> = ({ onComplete }) => {
             <button 
               onClick={() => setPlayer(prev => ({ ...prev, userStack: [] }))}
               style={{ background: 'transparent', color: '#64748b', border: 'none', fontSize: '0.8rem', cursor: 'pointer', textTransform: 'uppercase', letterSpacing: '0.2em', opacity: 0.6 }}
-              onMouseEnter={(e) => e.currentTarget.style.opacity = 1}
-              onMouseLeave={(e) => e.currentTarget.style.opacity = 0.6}
+              onMouseEnter={(e) => e.currentTarget.style.opacity = "1"}
+              onMouseLeave={(e) => e.currentTarget.style.opacity = "0.6"}
             >
               purge_selection
             </button>
