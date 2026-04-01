@@ -4,7 +4,6 @@ export interface TrialProps {
   playerCount: number;
   playerKeys: Record<string, string>;
   onComplete: (score: string) => void;
-  onExit: () => void;
   isMuted: boolean;
 }
 
@@ -81,27 +80,27 @@ const PathOfTheFallen: React.FC<TrialProps> = ({ playerCount, playerKeys, onComp
       const h = Math.floor(window.innerHeight * 0.65);
       canvasRef.current.width = w;
       canvasRef.current.height = h;
-      
+
       stateRef.current.width = w;
       stateRef.current.height = h;
-      
+
       const laneHeight = h / playerCount;
-      
+
       const pStates: PlayerState[] = [];
-      for(let i=0; i<playerCount; i++) {
-        const pId = `p${i+1}`;
+      for (let i = 0; i < playerCount; i++) {
+        const pId = `p${i + 1}`;
         pStates.push({
           id: pId,
-          name: `Challenger 0${i+1}`,
+          name: `Challenger 0${i + 1}`,
           keyLabel: playerKeys[pId]?.toUpperCase() || '?',
           color: PLAYER_COLORS[i],
           x: w * 0.1,
-          y: (i+1) * laneHeight - 50,
+          y: (i + 1) * laneHeight - 50,
           width: 35,
           height: 35,
           velocityY: 0,
           isJumping: false,
-          groundY: (i+1) * laneHeight - 50,
+          groundY: (i + 1) * laneHeight - 50,
           isAlive: true
         });
       }
@@ -115,7 +114,7 @@ const PathOfTheFallen: React.FC<TrialProps> = ({ playerCount, playerKeys, onComp
       const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
-      
+
       if (type === 'jump') {
         osc.type = 'sine'; osc.frequency.setValueAtTime(300, audioCtx.currentTime);
         osc.frequency.exponentialRampToValueAtTime(500, audioCtx.currentTime + 0.1);
@@ -139,9 +138,9 @@ const PathOfTheFallen: React.FC<TrialProps> = ({ playerCount, playerKeys, onComp
         gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
         osc.start(); osc.stop(audioCtx.currentTime + 0.3);
       }
-      
+
       osc.connect(gain); gain.connect(audioCtx.destination);
-    } catch(e) {}
+    } catch (e) { }
   }, [isMuted]);
 
   useEffect(() => {
@@ -170,10 +169,10 @@ const PathOfTheFallen: React.FC<TrialProps> = ({ playerCount, playerKeys, onComp
       p.velocityY = -14;
       p.isJumping = true;
       playSound('jump');
-      
-      for (let i=0; i<12; i++) {
+
+      for (let i = 0; i < 12; i++) {
         stateRef.current.particles.push({
-          x: p.x + p.width/2, y: p.y + p.height,
+          x: p.x + p.width / 2, y: p.y + p.height,
           vx: (Math.random() - 0.5) * 6, vy: Math.random() * 3,
           life: 1.2, color: p.color
         });
@@ -216,11 +215,11 @@ const PathOfTheFallen: React.FC<TrialProps> = ({ playerCount, playerKeys, onComp
 
     const gameLoop = () => {
       if (stopped) return;
-      
+
       st.frames++;
       st.speed += 0.0006;
       st.score += 1;
-      
+
       ctx.clearRect(0, 0, st.width, st.height);
 
       st.players.forEach((player) => {
@@ -237,10 +236,10 @@ const PathOfTheFallen: React.FC<TrialProps> = ({ playerCount, playerKeys, onComp
             player.y = player.groundY;
             player.isJumping = false;
             player.velocityY = 0;
-            
-            for (let i=0; i<8; i++) {
+
+            for (let i = 0; i < 8; i++) {
               st.particles.push({
-                x: player.x + player.width/2, y: player.y + player.height,
+                x: player.x + player.width / 2, y: player.y + player.height,
                 vx: (Math.random() - 0.5) * 6, vy: -Math.random() * 3,
                 life: 0.6, color: player.color
               });
@@ -253,7 +252,7 @@ const PathOfTheFallen: React.FC<TrialProps> = ({ playerCount, playerKeys, onComp
       st.trails = st.trails.filter(t => t.life > 0);
 
       st.particles.forEach(p => {
-        p.x += p.vx - st.speed; 
+        p.x += p.vx - st.speed;
         p.y += p.vy;
         p.vy += 0.12;
         p.life -= 0.02;
@@ -278,8 +277,8 @@ const PathOfTheFallen: React.FC<TrialProps> = ({ playerCount, playerKeys, onComp
           st.obstacles.push(createObs(targetLane, type));
 
           if (st.speed > 8 && Math.random() > 0.6) {
-             const secLane = aliveLanes.filter(l => l !== targetLane)[0];
-             if (secLane !== undefined) st.obstacles.push(createObs(secLane, 'box'));
+            const secLane = aliveLanes.filter(l => l !== targetLane)[0];
+            if (secLane !== undefined) st.obstacles.push(createObs(secLane, 'box'));
           }
         }
       }
@@ -288,19 +287,19 @@ const PathOfTheFallen: React.FC<TrialProps> = ({ playerCount, playerKeys, onComp
         let spd = st.speed;
         if (obs.type === 'projectile') spd *= 1.6;
         obs.x -= spd;
-        if (obs.type === 'bird') obs.y += Math.sin(st.frames/12)*2.5;
+        if (obs.type === 'bird') obs.y += Math.sin(st.frames / 12) * 2.5;
 
         const p = st.players[obs.laneIdx];
         if (p && p.isAlive) {
           if (p.x < obs.x + obs.w && p.x + p.width > obs.x && p.y < obs.y + obs.h && p.y + p.height > obs.y) {
             p.isAlive = false;
             playSound('crash');
-            for(let i=0; i<30; i++) {
-               st.particles.push({
-                 x: p.x + p.width/2, y: p.y + p.height/2,
-                 vx: (Math.random() - 0.5) * 15, vy: (Math.random() - 0.5) * 15,
-                 life: 1.5, color: '#ef4444'
-               });
+            for (let i = 0; i < 30; i++) {
+              st.particles.push({
+                x: p.x + p.width / 2, y: p.y + p.height / 2,
+                vx: (Math.random() - 0.5) * 15, vy: (Math.random() - 0.5) * 15,
+                life: 1.5, color: '#ef4444'
+              });
             }
           }
         }
@@ -309,25 +308,25 @@ const PathOfTheFallen: React.FC<TrialProps> = ({ playerCount, playerKeys, onComp
       st.obstacles = st.obstacles.filter(o => o.x > -100);
 
       const laneHeight = st.height / playerCount;
-      for(let i=0; i<playerCount; i++) {
-         const p = st.players[i];
-         const ly = i * laneHeight;
-         const gy = p.groundY + p.height;
-         
-         ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
-         ctx.lineWidth = 2;
-         ctx.beginPath();
-         ctx.moveTo(0, gy); ctx.lineTo(st.width, gy);
-         ctx.stroke();
+      for (let i = 0; i < playerCount; i++) {
+        const p = st.players[i];
+        const ly = i * laneHeight;
+        const gy = p.groundY + p.height;
 
-         if (!p.isAlive) {
-            ctx.fillStyle = 'rgba(239, 68, 68, 0.08)';
-            ctx.fillRect(0, ly, st.width, laneHeight);
-            ctx.fillStyle = 'rgba(239, 68, 68, 0.6)';
-            ctx.font = 'bold 1.2rem "Cinzel", serif';
-            ctx.textAlign = 'center';
-            ctx.fillText("CHALLENGE LOST // ELIMINATED", st.width / 2, ly + laneHeight / 2 + 10);
-         }
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(0, gy); ctx.lineTo(st.width, gy);
+        ctx.stroke();
+
+        if (!p.isAlive) {
+          ctx.fillStyle = 'rgba(239, 68, 68, 0.08)';
+          ctx.fillRect(0, ly, st.width, laneHeight);
+          ctx.fillStyle = 'rgba(239, 68, 68, 0.6)';
+          ctx.font = 'bold 1.2rem "Cinzel", serif';
+          ctx.textAlign = 'center';
+          ctx.fillText("CHALLENGE LOST // ELIMINATED", st.width / 2, ly + laneHeight / 2 + 10);
+        }
       }
 
       st.trails.forEach(t => {
@@ -384,12 +383,12 @@ const PathOfTheFallen: React.FC<TrialProps> = ({ playerCount, playerKeys, onComp
         <h3 style={{ margin: 0, fontFamily: 'Cinzel, serif', color: '#f8fafc', fontSize: '1.8rem', letterSpacing: '0.15em' }}>PATH OF THE FALLEN</h3>
         <span style={{ fontFamily: 'Inter, sans-serif', color: '#94a3b8', fontSize: '1.2rem', letterSpacing: '0.2em' }}>SCORE: {score}</span>
       </div>
-      
-      <div 
-        style={{ 
-          flex: 1, 
-          width: '100%', 
-          background: 'rgba(2, 6, 23, 0.6)', 
+
+      <div
+        style={{
+          flex: 1,
+          width: '100%',
+          background: 'rgba(2, 6, 23, 0.6)',
           borderTop: '1px solid rgba(255, 255, 255, 0.05)',
           borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
           position: 'relative'
@@ -400,12 +399,12 @@ const PathOfTheFallen: React.FC<TrialProps> = ({ playerCount, playerKeys, onComp
 
         {gameStateStage === 'COUNTDOWN' && (
           <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(2,6,23,0.7)', backdropFilter: 'blur(8px)', zIndex: 10 }}>
-            <span style={{ fontSize: '8rem', fontWeight: 'bold', fontFamily: 'Cinzel, serif', color: '#fff', textShadow: '0 0 50px rgba(255,255,255,0.3)', transform: `scale(${1 + ((3-countdown)*0.2)})`, transition: 'all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)' }}>
+            <span style={{ fontSize: '8rem', fontWeight: 'bold', fontFamily: 'Cinzel, serif', color: '#fff', textShadow: '0 0 50px rgba(255,255,255,0.3)', transform: `scale(${1 + ((3 - countdown) * 0.2)})`, transition: 'all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)' }}>
               {countdown > 0 ? countdown : 'BEGIN'}
             </span>
           </div>
         )}
-        
+
         {gameStateStage === 'GAMEOVER' && (
           <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(2,6,23,0.9)', backdropFilter: 'blur(12px)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'white', zIndex: 10, animation: 'cinematicFade 0.8s ease' }}>
             <h2 style={{ fontFamily: 'Cinzel, serif', color: '#fff', marginBottom: '1rem', fontSize: '4.5rem', letterSpacing: '0.1em' }}>{winner}</h2>
@@ -417,13 +416,13 @@ const PathOfTheFallen: React.FC<TrialProps> = ({ playerCount, playerKeys, onComp
           </div>
         )}
       </div>
-      
+
       <div style={{ display: 'flex', justifyContent: 'center', gap: '3rem', width: '100%', padding: '1.5rem', color: '#64748b', fontSize: '0.8rem', letterSpacing: '0.1em' }}>
-        {Object.keys(playerKeys).map((_, idx) => (
-           <span key={pId} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-             <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: PLAYER_COLORS[idx] }}></span>
-             PLAYER_0{idx+1} [ {key.toUpperCase()} ]
-           </span>
+        {Object.entries(playerKeys).map(([pId, key], idx) => (
+          <span key={pId} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: PLAYER_COLORS[idx] }}></span>
+            PLAYER_0{idx + 1} [ {key.toUpperCase()} ]
+          </span>
         ))}
       </div>
     </div>
