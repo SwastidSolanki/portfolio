@@ -87,7 +87,7 @@ const SecretSystem: React.FC = () => {
     window.addEventListener('keydown', handleKeydown);
     
     // Automatic routing check (including hash variations)
-    const accessPath = window.location.pathname.toLowerCase();
+    const accessPath = window.location.pathname.toLowerCase().replace(/\/$/, '');
     if (accessPath === '/avada-kedavra' || window.location.hash === '#/avada-kedavra') {
       handleSkip();
     }
