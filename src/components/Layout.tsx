@@ -32,8 +32,22 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
     gsap.ticker.lagSmoothing(0);
 
+    const observer = new MutationObserver(() => {
+      if (document.documentElement.classList.contains('secret-active')) {
+        lenis.stop();
+      } else {
+        lenis.start();
+      }
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
     return () => {
       lenis.destroy();
+      observer.disconnect();
       gsap.ticker.remove((time) => {
         lenis.raf(time * 1000);
       });

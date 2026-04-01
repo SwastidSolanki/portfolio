@@ -20,8 +20,12 @@ const Navbar: React.FC = () => {
   };
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
+    const isSecretActive = document.documentElement.classList.contains('secret-active');
     const previous = scrollY.getPrevious() || 0;
-    if (latest > previous && latest > 150) {
+    
+    if (isSecretActive) {
+      setHidden(true);
+    } else if (latest > previous && latest > 150) {
       setHidden(true);
     } else {
       setHidden(false);
@@ -29,6 +33,24 @@ const Navbar: React.FC = () => {
 
     setScrolled(latest > 50);
   });
+
+  // Watch for class changes (for initial entry)
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      if (document.documentElement.classList.contains('secret-active')) {
+        setHidden(true);
+      } else {
+        setHidden(false);
+      }
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <motion.nav

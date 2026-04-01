@@ -36,6 +36,7 @@ const tools = [
   { name: 'GSAP', icon: 'https://cdn.simpleicons.org/greensock/88CE02' },
 ];
 
+
 const TechStack: React.FC = () => {
   const [activeTool, setActiveTool] = useState<string | null>(null);
 
@@ -54,8 +55,8 @@ const TechStack: React.FC = () => {
       <div className={styles.marqueeWrapper}>
         <div className={styles.marqueeTrack}>
           {doubled.map((tool, i) => (
-            <div 
-              key={`${tool.name}-${i}`} 
+            <div
+              key={`${tool.name}-${i}`}
               className={`${styles.toolCard} ${i >= tools.length ? styles.desktopOnly : ''} ${activeTool === tool.name ? styles.active : ''}`}
               onClick={() => handleToolClick(tool.name)}
             >
@@ -69,6 +70,8 @@ const TechStack: React.FC = () => {
                 {tool.name}
               </span>
             </div>
+
+
           ))}
         </div>
       </div>
