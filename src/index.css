@@ -149,8 +149,9 @@ html.lenis, html.lenis body {
 
 /* Atmospheric Secret State Blur */
 .secret-active #main-content {
-  filter: blur(12px) brightness(0.4);
-  transition: filter 0.8s ease, brightness 0.8s ease;
+  filter: blur(20px) brightness(0.3);
+  transform: translateZ(0); /* Force hardware context for ThreeJS blur */
+  transition: filter 1s ease, brightness 1s ease;
   pointer-events: none;
   user-select: none;
 }
