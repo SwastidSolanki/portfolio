@@ -146,3 +146,11 @@ html.lenis, html.lenis body {
   visibility: visible;
   transform: translateY(0);
 }
+
+/* Atmospheric Secret State Blur */
+.secret-active #main-content {
+  filter: blur(12px) brightness(0.4);
+  transition: filter 0.8s ease, brightness 0.8s ease;
+  pointer-events: none;
+  user-select: none;
+}
