@@ -19,10 +19,10 @@ function App() {
         <TechStack />
       </Layout>
       <SecretSystem />
-      <footer style={{ width: '100%', padding: '2rem', textAlign: 'center', color: '#475569', fontSize: '0.75rem', letterSpacing: '0.4em', textTransform: 'uppercase', position: 'relative', zIndex: 1, borderTop: '1px solid rgba(255,255,255,0.02)' }}>
-        Speak thy spell… and the path shall reveal itself
+      <footer style={{ width: '100%', padding: '2rem', textAlign: 'center', color: '#94a3b8', fontWeight: '600', fontSize: '0.75rem', letterSpacing: '0.4em', textTransform: 'uppercase', position: 'relative', zIndex: 1, borderTop: '1px solid rgba(255,255,255,0.02)' }}>
+        Speak thy spell, and the path shall reveal itself.
       </footer>
-      <div 
+      <div
         onClick={() => window.dispatchEvent(new CustomEvent('triggerSecretDirect'))}
         style={{
           position: 'fixed',
