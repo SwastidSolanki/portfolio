@@ -71,7 +71,7 @@ const SecretSystem: React.FC = () => {
         sequenceRef.current = sequenceRef.current.substring(1);
       }
       
-      if (sequenceRef.current.toLowerCase().endsWith('/gametime!')) {
+      if (sequenceRef.current.toLowerCase().endsWith('avada-kedavra')) {
         handleTrigger();
         sequenceRef.current = ''; 
       }
@@ -88,7 +88,7 @@ const SecretSystem: React.FC = () => {
     
     // Automatic routing check (including hash variations)
     const accessPath = window.location.pathname.toLowerCase();
-    if (accessPath === '/gametime!' || window.location.hash === '#/gametime!') {
+    if (accessPath === '/avada-kedavra' || window.location.hash === '#/avada-kedavra') {
       handleSkip();
     }
 

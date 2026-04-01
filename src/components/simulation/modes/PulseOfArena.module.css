@@ -4,9 +4,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 3rem;
+  gap: 4rem;
   background: #020617;
-  padding: 2rem;
+  padding: 1rem;
   animation: arenaFade 0.8s ease-out;
   position: relative;
   overflow: hidden;
@@ -37,10 +37,10 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 600px;
-  padding: 2rem 0;
+  height: 640px;
+  padding: 3rem 0;
   border-left: 1px solid rgba(255, 255, 255, 0.05);
-  padding-left: 3rem;
+  padding-left: 4rem;
 }
 
 .playerInfo {
@@ -51,21 +51,22 @@
 }
 
 .p2Score, .p1Score {
-  font-family: 'Cinzel', serif;
-  font-size: 5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6rem;
   line-height: 1;
   font-weight: 900;
   color: #fff;
-  text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+  text-shadow: 0 0 20px rgba(0, 102, 255, 0.5), 0 0 40px rgba(0, 102, 255, 0.2);
 }
 
 .pTag {
   writing-mode: vertical-rl;
   text-orientation: mixed;
-  font-size: 0.8rem;
-  letter-spacing: 0.5em;
-  color: #475569;
+  font-size: 0.7rem;
+  letter-spacing: 0.8em;
+  color: #64748b;
   text-transform: uppercase;
+  opacity: 0.6;
 }
 
 .middleControl {

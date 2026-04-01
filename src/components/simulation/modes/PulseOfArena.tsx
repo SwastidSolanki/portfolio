@@ -6,9 +6,10 @@ const BOARD_WIDTH = 450;
 const BOARD_HEIGHT = 700;
 const PUCK_RADIUS = 15;
 const MALLET_RADIUS = 30;
-const GOAL_WIDTH = 180;
-const MAX_SPEED = 20;
-const FRICTION = 0.995;
+const GOAL_WIDTH = 220;
+const MAX_SPEED = 28;
+const FRICTION = 0.998;
+const BW = 10; // Border Width
 
 const PulseOfArena: React.FC<TrialProps> = ({ playerCount: _pc, playerKeys: _pk, onComplete, isMuted: _im }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -164,52 +165,75 @@ const PulseOfArena: React.FC<TrialProps> = ({ playerCount: _pc, playerKeys: _pk,
       ctx.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
       const st = gameState.current;
 
-      // Draw Borders (Quadrants: Red, Yellow, Blue, Green)
-      const bw = 8;
-      ctx.lineWidth = bw;
+      // Draw Borders (Holes for goals)
+      ctx.lineWidth = BW;
       ctx.lineCap = 'round';
-      ctx.shadowBlur = 10;
+      const goalStart = (BOARD_WIDTH - GOAL_WIDTH) / 2;
+      const goalEnd = (BOARD_WIDTH + GOAL_WIDTH) / 2;
       
       // Top Left: Red
-      ctx.strokeStyle = '#ff3131'; ctx.shadowColor = '#ff3131';
-      ctx.beginPath(); ctx.moveTo(bw, BOARD_HEIGHT/2); ctx.lineTo(bw, bw); ctx.lineTo(BOARD_WIDTH/2, bw); ctx.stroke();
+      ctx.strokeStyle = '#ff3131'; ctx.shadowColor = '#ff3131'; ctx.shadowBlur = 25;
+      ctx.beginPath(); 
+      ctx.moveTo(BW, BOARD_HEIGHT/2); 
+      ctx.lineTo(BW, BW); 
+      ctx.lineTo(goalStart, BW); 
+      ctx.stroke();
       
       // Top Right: Yellow
-      ctx.strokeStyle = '#ffe227'; ctx.shadowColor = '#ffe227';
-      ctx.beginPath(); ctx.moveTo(BOARD_WIDTH/2, bw); ctx.lineTo(BOARD_WIDTH-bw, bw); ctx.lineTo(BOARD_WIDTH-bw, BOARD_HEIGHT/2); ctx.stroke();
+      ctx.strokeStyle = '#ffe227'; ctx.shadowColor = '#ffe227'; ctx.shadowBlur = 25;
+      ctx.beginPath(); 
+      ctx.moveTo(goalEnd, BW); 
+      ctx.lineTo(BOARD_WIDTH - BW, BW); 
+      ctx.lineTo(BOARD_WIDTH - BW, BOARD_HEIGHT/2); 
+      ctx.stroke();
 
       // Bottom Left: Blue
-      ctx.strokeStyle = '#0066ff'; ctx.shadowColor = '#0066ff';
-      ctx.beginPath(); ctx.moveTo(bw, BOARD_HEIGHT/2); ctx.lineTo(bw, BOARD_HEIGHT-bw); ctx.lineTo(BOARD_WIDTH/2, BOARD_HEIGHT-bw); ctx.stroke();
+      ctx.strokeStyle = '#0066ff'; ctx.shadowColor = '#0066ff'; ctx.shadowBlur = 25;
+      ctx.beginPath(); 
+      ctx.moveTo(BW, BOARD_HEIGHT/2); 
+      ctx.lineTo(BW, BOARD_HEIGHT - BW); 
+      ctx.lineTo(goalStart, BOARD_HEIGHT - BW); 
+      ctx.stroke();
 
       // Bottom Right: Green
-      ctx.strokeStyle = '#39ff14'; ctx.shadowColor = '#39ff14';
-      ctx.beginPath(); ctx.moveTo(BOARD_WIDTH/2, BOARD_HEIGHT-bw); ctx.lineTo(BOARD_WIDTH-bw, BOARD_HEIGHT-bw); ctx.lineTo(BOARD_WIDTH-bw, BOARD_HEIGHT/2); ctx.stroke();
+      ctx.strokeStyle = '#39ff14'; ctx.shadowColor = '#39ff14'; ctx.shadowBlur = 25;
+      ctx.beginPath(); 
+      ctx.moveTo(goalEnd, BOARD_HEIGHT - BW); 
+      ctx.lineTo(BOARD_WIDTH - BW, BOARD_HEIGHT - BW); 
+      ctx.lineTo(BOARD_WIDTH - BW, BOARD_HEIGHT/2); 
+      ctx.stroke();
+
+      // Goal Arches (Neon cutout indicators)
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = '#ffe227'; ctx.shadowColor = '#ffe227'; ctx.shadowBlur = 20;
+      ctx.beginPath(); ctx.arc(BOARD_WIDTH/2, BW, GOAL_WIDTH/2, 0, Math.PI); ctx.stroke();
+      ctx.strokeStyle = '#ff3131'; ctx.shadowColor = '#ff3131'; ctx.shadowBlur = 20;
+      ctx.beginPath(); ctx.arc(BOARD_WIDTH/2, BOARD_HEIGHT - BW, GOAL_WIDTH/2, Math.PI, 0); ctx.stroke();
 
       // Center UI
       ctx.shadowBlur = 5; ctx.strokeStyle = 'rgba(255,255,255,0.2)'; ctx.lineWidth = 2;
       ctx.beginPath(); ctx.moveTo(0, BOARD_HEIGHT/2); ctx.lineTo(BOARD_WIDTH, BOARD_HEIGHT/2); ctx.stroke();
       ctx.beginPath(); ctx.arc(BOARD_WIDTH/2, BOARD_HEIGHT/2, 60, 0, Math.PI*2); ctx.stroke();
       
-      // Goals Cutouts (Drawing Goal arches)
-      ctx.shadowBlur = 15; ctx.lineWidth = 4;
-      ctx.strokeStyle = '#ffe227'; ctx.beginPath(); ctx.arc(BOARD_WIDTH/2, 0, GOAL_WIDTH/2, 0, Math.PI); ctx.stroke();
-      ctx.strokeStyle = '#ff3131'; ctx.beginPath(); ctx.arc(BOARD_WIDTH/2, BOARD_HEIGHT, GOAL_WIDTH/2, Math.PI, 0); ctx.stroke();
+      // Mallets - Thick White Hollow Rings with Colored Glow
+      ctx.lineWidth = 12;
+      
+      // P1: Red Glow
+      ctx.strokeStyle = '#ffffff'; ctx.shadowColor = '#ff3131'; ctx.shadowBlur = 40;
+      ctx.beginPath(); ctx.arc(st.p1.x, st.p1.y, MALLET_RADIUS, 0, Math.PI * 2); ctx.stroke();
+      ctx.shadowBlur = 10; ctx.lineWidth = 4;
+      ctx.beginPath(); ctx.arc(st.p1.x, st.p1.y, MALLET_RADIUS - 16, 0, Math.PI * 2); ctx.stroke();
 
-      // Strikers (Mallets)
-      // P1 - Red
-      ctx.strokeStyle = '#ff3131'; ctx.shadowColor = '#ff3131'; ctx.lineWidth = 10;
-      ctx.beginPath(); ctx.arc(st.p1.x, st.p1.y, MALLET_RADIUS, 0, Math.PI*2); ctx.stroke();
-      ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(st.p1.x, st.p1.y, MALLET_RADIUS-12, 0, Math.PI*2); ctx.stroke();
+      // P2: Green Glow
+      ctx.strokeStyle = '#ffffff'; ctx.shadowColor = '#39ff14'; ctx.shadowBlur = 40;
+      ctx.lineWidth = 12;
+      ctx.beginPath(); ctx.arc(st.p2.x, st.p2.y, MALLET_RADIUS, 0, Math.PI * 2); ctx.stroke();
+      ctx.shadowBlur = 10; ctx.lineWidth = 4;
+      ctx.beginPath(); ctx.arc(st.p2.x, st.p2.y, MALLET_RADIUS - 16, 0, Math.PI * 2); ctx.stroke();
 
-      // P2 - Green
-      ctx.strokeStyle = '#39ff14'; ctx.shadowColor = '#39ff14'; ctx.lineWidth = 10;
-      ctx.beginPath(); ctx.arc(st.p2.x, st.p2.y, MALLET_RADIUS, 0, Math.PI*2); ctx.stroke();
-      ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(st.p2.x, st.p2.y, MALLET_RADIUS-12, 0, Math.PI*2); ctx.stroke();
-
-      // Puck
-      ctx.fillStyle = '#fff'; ctx.shadowColor = '#fff'; ctx.shadowBlur = 20;
-      ctx.beginPath(); ctx.arc(st.puck.x, st.puck.y, PUCK_RADIUS, 0, Math.PI*2); ctx.fill();
+      // Puck - Solid White with extreme glow
+      ctx.fillStyle = '#ffffff'; ctx.shadowColor = '#ffffff'; ctx.shadowBlur = 45;
+      ctx.beginPath(); ctx.arc(st.puck.x, st.puck.y, PUCK_RADIUS, 0, Math.PI * 2); ctx.fill();
       
       ctx.shadowBlur = 0;
     };
@@ -226,6 +250,15 @@ const PulseOfArena: React.FC<TrialProps> = ({ playerCount: _pc, playerKeys: _pk,
 
   return (
     <div className={styles.wrapper}>
+      <div className={styles.gameBoard}>
+        <canvas 
+          ref={canvasRef} 
+          width={BOARD_WIDTH} 
+          height={BOARD_HEIGHT}
+          className={styles.mainCanvas}
+        />
+      </div>
+
       <div className={styles.sideUi}>
         <div className={styles.playerInfo}>
           <div className={styles.p2Score}>{scores.p2}</div>
@@ -238,15 +271,6 @@ const PulseOfArena: React.FC<TrialProps> = ({ playerCount: _pc, playerKeys: _pk,
           <div className={styles.pTag}>ALPHA</div>
           <div className={styles.p1Score}>{scores.p1}</div>
         </div>
-      </div>
-
-      <div className={styles.gameBoard}>
-        <canvas 
-          ref={canvasRef} 
-          width={BOARD_WIDTH} 
-          height={BOARD_HEIGHT}
-          className={styles.mainCanvas}
-        />
       </div>
 
       {isGameOver && (
