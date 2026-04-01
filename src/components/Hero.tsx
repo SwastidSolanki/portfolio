@@ -59,9 +59,9 @@ const Hero: React.FC = () => {
         </h1>
 
         <p className={`hero-sub ${styles.subtitle}`}>
-          Passionate about ThreeJS, GSAP, Automation, Python, Data Engineering, Data Visualization, ETL Pipelines,
-          Cloud Infrastructure, and building
-          scalable solutions on AWS.
+          Passionate about ThreeJS, GSAP, Automation, Python, Data Engineering, ETL Pipelines,
+          AWS Services, and building
+          scalable solutions.
         </p>
       </div>
 
