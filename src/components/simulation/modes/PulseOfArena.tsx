@@ -5,8 +5,8 @@ import type { TrialProps } from './PathOfTheFallen';
 const BOARD_WIDTH = 450;
 const BOARD_HEIGHT = 700;
 const PUCK_RADIUS = 15;
-const MALLET_RADIUS = 30;
-const GOAL_WIDTH = 220;
+const MALLET_RADIUS = 40;
+const GOAL_WIDTH = 180;
 const MAX_SPEED = 28;
 const FRICTION = 0.998;
 const BW = 10; // Border Width
