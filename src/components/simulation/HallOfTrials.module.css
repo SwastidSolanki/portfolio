@@ -532,3 +532,43 @@
   max-width: 300px;
   letter-spacing: 0.05em;
 }
+
+@media (max-width: 1200px) {
+  .trialGrid {
+    display: none !important;
+  }
+  
+  .mobileRestriction {
+    display: flex !important;
+  }
+
+  .menuHeader p {
+    display: none !important;
+  }
+}
+
+.mobileHomeBtn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+}
+
+.mobileHomeBtn:hover {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+}
+
+.mobileHomeBtn span {
+  font-weight: 700;
+}

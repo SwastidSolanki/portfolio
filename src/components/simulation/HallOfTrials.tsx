@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Volume2, VolumeX, X, Maximize, Minimize, RotateCcw, ChevronLeft, Monitor } from 'lucide-react';
+import { Volume2, VolumeX, X, Maximize, Minimize, RotateCcw, ChevronLeft, Monitor, Home } from 'lucide-react';
 import gsap from 'gsap';
 import PathOfTheFallen from './modes/PathOfTheFallen';
 import JudgementOfInstinct from './modes/JudgementOfInstinct';
@@ -24,15 +24,19 @@ const HallOfTrials: React.FC<HallProps> = ({ onClose }) => {
   const [playerKeys, setPlayerKeys] = useState<Record<string, string>>({});
   const [isMuted, setIsMuted] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 1200);
   const [resetKey, setResetKey] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
-    checkMobile();
+    const checkMobile = () => {
+      const mobileWidth = window.innerWidth < 1200;
+      setIsMobile(mobileWidth);
+    };
+    
+    checkMobile(); // Re-sync on mount
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
@@ -41,8 +45,16 @@ const HallOfTrials: React.FC<HallProps> = ({ onClose }) => {
     if (currentArena === 'MENU' && !setupArena && !isMobile && cardsRef.current.length > 0) {
       gsap.fromTo(
         cardsRef.current,
-        { opacity: 0, y: 60, rotateX: -15, scale: 0.9 },
-        { opacity: 1, y: 0, rotateX: 0, scale: 1, duration: 0.6, ease: 'back.out(1.7)' }
+        { opacity: 0, scale: 0.9, y: 30, rotateX: -10 },
+        { 
+          opacity: 1, 
+          scale: 1, 
+          y: 0, 
+          rotateX: 0, 
+          duration: 0.8, 
+          stagger: 0.05,
+          ease: 'power3.out' 
+        }
       );
     }
   }, [currentArena, setupArena, isMobile]);
@@ -100,27 +112,36 @@ const HallOfTrials: React.FC<HallProps> = ({ onClose }) => {
           <h2 className={styles.title}>Chamber Of Secrets</h2>
         </div>
 
-        <div className={styles.controls}>
-          {currentArena !== 'MENU' && (
-            <>
-              <button title="Attempt Again" onClick={() => setResetKey(k => k + 1)} className={styles.iconBtn}>
-                <RotateCcw size={16} />
-              </button>
-              <button title="Back to Arena" onClick={() => setCurrentArena('MENU')} className={styles.iconBtn}>
-                <ChevronLeft size={16} />
-              </button>
-            </>
-          )}
-          <button title="Mute/Unmute" onClick={() => setIsMuted(!isMuted)} className={styles.iconBtn}>
-            {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
-          </button>
-          <button title="Toggle Fullscreen" onClick={toggleFullscreen} className={styles.iconBtn}>
-            {isFullscreen ? <Minimize size={16} /> : <Maximize size={16} />}
-          </button>
-          <button title="Exit Chamber" onClick={onClose} className={styles.iconBtnExit}>
-            <X size={16} />
-          </button>
-        </div>
+        {!isMobile ? (
+          <div className={styles.controls}>
+            {currentArena !== 'MENU' && (
+              <>
+                <button title="Attempt Again" onClick={() => setResetKey(k => k + 1)} className={styles.iconBtn}>
+                  <RotateCcw size={16} />
+                </button>
+                <button title="Back to Arena" onClick={() => setCurrentArena('MENU')} className={styles.iconBtn}>
+                  <ChevronLeft size={16} />
+                </button>
+              </>
+            )}
+            <button title="Mute/Unmute" onClick={() => setIsMuted(!isMuted)} className={styles.iconBtn}>
+              {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+            </button>
+            <button title="Toggle Fullscreen" onClick={toggleFullscreen} className={styles.iconBtn}>
+              {isFullscreen ? <Minimize size={16} /> : <Maximize size={16} />}
+            </button>
+            <button title="Exit Chamber" onClick={onClose} className={styles.iconBtnExit}>
+              <X size={16} />
+            </button>
+          </div>
+        ) : (
+          <div className={styles.controls}>
+            <button title="Return to Reality" onClick={onClose} className={styles.mobileHomeBtn}>
+              <Home size={18} />
+              <span>EXIT</span>
+            </button>
+          </div>
+        )}
       </div>
 
       <div className={styles.contentArea}>
