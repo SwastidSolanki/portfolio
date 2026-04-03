@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Volume2, VolumeX, X, Maximize, Minimize, RotateCcw, ChevronLeft } from 'lucide-react';
+import { Volume2, VolumeX, X, Maximize, Minimize, RotateCcw, ChevronLeft, Monitor } from 'lucide-react';
 import gsap from 'gsap';
 import PathOfTheFallen from './modes/PathOfTheFallen';
 import JudgementOfInstinct from './modes/JudgementOfInstinct';
@@ -159,6 +159,17 @@ const HallOfTrials: React.FC<HallProps> = ({ onClose }) => {
                 <p className={styles.trialSubtitle}>Kinetic conflict in the glowing void.</p>
                 <div className={styles.trialFooter}><span className={styles.playerTag}>Two Player Duel</span></div>
               </div>
+            </div>
+
+            <div className={styles.mobileRestriction}>
+              <div className={styles.restrictIcon}>
+                <Monitor size={32} />
+              </div>
+              <h3 className={styles.restrictTitle}>Path Sealed</h3>
+              <p className={styles.restrictDesc}>
+                This chamber requires a master console for the rite. 
+                Please return from a desktop vessel to continue.
+              </p>
             </div>
           </div>
         )}
