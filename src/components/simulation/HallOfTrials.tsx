@@ -25,19 +25,27 @@ const HallOfTrials: React.FC<HallProps> = ({ onClose }) => {
   const [isMuted, setIsMuted] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [resetKey, setResetKey] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    if (currentArena === 'MENU' && !setupArena && cardsRef.current.length > 0) {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (currentArena === 'MENU' && !setupArena && !isMobile && cardsRef.current.length > 0) {
       gsap.fromTo(
         cardsRef.current,
         { opacity: 0, y: 60, rotateX: -15, scale: 0.9 },
         { opacity: 1, y: 0, rotateX: 0, scale: 1, duration: 0.6, ease: 'back.out(1.7)' }
       );
     }
-  }, [currentArena, setupArena]);
+  }, [currentArena, setupArena, isMobile]);
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
@@ -120,57 +128,59 @@ const HallOfTrials: React.FC<HallProps> = ({ onClose }) => {
           <div className={styles.menuContainer}>
             <div className={styles.menuHeader}>
               <h2>Choose Your Challenge</h2>
-              <p>THE PATH TO VICTORY IS PAVED WITH FAILED ATTEMPTS</p>
+              {!isMobile && <p>THE PATH TO VICTORY IS PAVED WITH FAILED ATTEMPTS</p>}
             </div>
 
-            <div className={styles.trialGrid}>
-              <div ref={el => { cardsRef.current[0] = el; }} className={styles.trialCard} onClick={() => handleArenaClick('FALLEN')}>
-                <h3>Shadow Run</h3>
-                <p className={styles.trialSubtitle}>Navigate the abyss where many before you have vanished.</p>
-                <div className={styles.trialFooter}><span className={styles.playerTag}>Two Survivors</span></div>
-              </div>
+            {!isMobile ? (
+              <div className={styles.trialGrid}>
+                <div ref={el => { cardsRef.current[0] = el; }} className={styles.trialCard} onClick={() => handleArenaClick('FALLEN')}>
+                  <h3>Shadow Run</h3>
+                  <p className={styles.trialSubtitle}>Navigate the abyss where many before you have vanished.</p>
+                  <div className={styles.trialFooter}><span className={styles.playerTag}>Two Survivors</span></div>
+                </div>
 
-              <div ref={el => { cardsRef.current[1] = el; }} className={styles.trialCard} onClick={() => handleArenaClick('INSTINCT')}>
-                <h3>Reflex Test</h3>
-                <p className={styles.trialSubtitle}>Hesitation is the first sign of slowing down.</p>
-                <div className={styles.trialFooter}><span className={styles.playerTag}>Priority Duel</span></div>
-              </div>
+                <div ref={el => { cardsRef.current[1] = el; }} className={styles.trialCard} onClick={() => handleArenaClick('INSTINCT')}>
+                  <h3>Reflex Test</h3>
+                  <p className={styles.trialSubtitle}>Hesitation is the first sign of slowing down.</p>
+                  <div className={styles.trialFooter}><span className={styles.playerTag}>Priority Duel</span></div>
+                </div>
 
-              <div ref={el => { cardsRef.current[2] = el; }} className={styles.trialCard} onClick={() => handleArenaClick('FATE')}>
-                <h3>Hot Core</h3>
-                <p className={styles.trialSubtitle}>Time is a currency you cannot afford to hold.</p>
-                <div className={styles.trialFooter}><span className={styles.playerTag}>Last One Standing</span></div>
-              </div>
+                <div ref={el => { cardsRef.current[2] = el; }} className={styles.trialCard} onClick={() => handleArenaClick('FATE')}>
+                  <h3>Hot Core</h3>
+                  <p className={styles.trialSubtitle}>Time is a currency you cannot afford to hold.</p>
+                  <div className={styles.trialFooter}><span className={styles.playerTag}>Last One Standing</span></div>
+                </div>
 
-              <div ref={el => { cardsRef.current[3] = el; }} className={styles.trialCard} onClick={() => handleArenaClick('MEMORY')}>
-                <h3>Memory Grid</h3>
-                <p className={styles.trialSubtitle}>Trace the forgotten path hidden in shadows.</p>
-                <div className={styles.trialFooter}><span className={styles.playerTag}>Solo Focus</span></div>
-              </div>
+                <div ref={el => { cardsRef.current[3] = el; }} className={styles.trialCard} onClick={() => handleArenaClick('MEMORY')}>
+                  <h3>Memory Grid</h3>
+                  <p className={styles.trialSubtitle}>Trace the forgotten path hidden in shadows.</p>
+                  <div className={styles.trialFooter}><span className={styles.playerTag}>Solo Focus</span></div>
+                </div>
 
-              <div ref={el => { cardsRef.current[4] = el; }} className={styles.trialCard} onClick={() => handleArenaClick('ORDER')}>
-                <h3>Tower Sync</h3>
-                <p className={styles.trialSubtitle}>Assemble the shards of a shattered structure.</p>
-                <div className={styles.trialFooter}><span className={styles.playerTag}>Architectural Focus</span></div>
-              </div>
+                <div ref={el => { cardsRef.current[4] = el; }} className={styles.trialCard} onClick={() => handleArenaClick('ORDER')}>
+                  <h3>Tower Sync</h3>
+                  <p className={styles.trialSubtitle}>Assemble the shards of a shattered structure.</p>
+                  <div className={styles.trialFooter}><span className={styles.playerTag}>Architectural Focus</span></div>
+                </div>
 
-              <div ref={el => { cardsRef.current[5] = el; }} className={styles.trialCard} onClick={() => handleArenaClick('PULSE')}>
-                <h3>Glow Hockey</h3>
-                <p className={styles.trialSubtitle}>Kinetic conflict in the glowing void.</p>
-                <div className={styles.trialFooter}><span className={styles.playerTag}>Two Player Duel</span></div>
+                <div ref={el => { cardsRef.current[5] = el; }} className={styles.trialCard} onClick={() => handleArenaClick('PULSE')}>
+                  <h3>Glow Hockey</h3>
+                  <p className={styles.trialSubtitle}>Kinetic conflict in the glowing void.</p>
+                  <div className={styles.trialFooter}><span className={styles.playerTag}>Two Player Duel</span></div>
+                </div>
               </div>
-            </div>
-
-            <div className={styles.mobileRestriction}>
-              <div className={styles.restrictIcon}>
-                <Monitor size={32} />
+            ) : (
+              <div className={styles.mobileRestriction}>
+                <div className={styles.restrictIcon}>
+                  <Monitor size={32} />
+                </div>
+                <h3 className={styles.restrictTitle}>Path Sealed</h3>
+                <p className={styles.restrictDesc}>
+                  This chamber requires a master console for the rite. 
+                  Please return from a desktop vessel to continue.
+                </p>
               </div>
-              <h3 className={styles.restrictTitle}>Path Sealed</h3>
-              <p className={styles.restrictDesc}>
-                This chamber requires a master console for the rite. 
-                Please return from a desktop vessel to continue.
-              </p>
-            </div>
+            )}
           </div>
         )}
 
