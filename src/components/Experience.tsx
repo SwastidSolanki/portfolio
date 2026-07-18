@@ -16,10 +16,10 @@ const experiences = [
   },
   {
     id: 2,
-    role: "Assistant System Engineer",
+    role: "Data Engineer",
     company: "TCS (Tata Consultancy Services)",
     duration: "Jan 2026 - Present",
-    description: "Working on enterprise-level applications, leveraging Python, SQL, ETL pipelines, and AWS services to build scalable architectures and ensure efficient data processing across distributed systems.",
+    description: "Working on enterprise-level applications, handling incidents and building ETL pipelines. Leveraging Python, SQL, and AWS services to build scalable architectures and ensure efficient data processing across distributed systems.",
     tech: ["AWS", "SQL", "Python", "ETL Pipelines"]
   }
 ];
